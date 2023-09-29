@@ -1,0 +1,5 @@
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Create 3 equal-width columns */
+    grid-gap: 16px; /* Add spacing between grid items */
+  }

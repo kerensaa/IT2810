@@ -1,16 +1,26 @@
-import { mockUsers } from '../mockData/mockData'
-import '../styling/LandingPage.css'
+import RecipeElement from "../components/recipeElement";
+import { mockUsers } from "../mockData/mockData";
+import "../styling/LandingPage.css";
+import "../styling/recipeElement.css";
 
 function LandingPage() {
-
-  const titles: string[] = mockUsers.map((recipe)=> recipe.title);
 
   return (
     <>
       <h1>Recipes</h1>
-      <section> {titles} </section>
+      <section className="recipe-grid">
+        {mockUsers.map((recipe) => (
+          <div className="recipe-element" key={recipe.id}>
+            <RecipeElement
+              imagePath={recipe.icon_path}
+              title={recipe.title}
+              description={recipe.description}
+            />
+          </div>
+        ))}
+      </section>
     </>
-  )
+  );
 }
 
-export default LandingPage
+export default LandingPage;
