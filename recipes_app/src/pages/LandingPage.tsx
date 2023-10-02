@@ -10,7 +10,7 @@ function LandingPage() {
       <h1>Recipes</h1>
       <section className="recipe-grid">
         {mockUsers.map((recipe) => (
-          <div className="recipe-element" key={recipe.id}>
+          <div key={recipe.id}>
             <RecipeElement
               imagePath={recipe.icon_path}
               title={recipe.title}
