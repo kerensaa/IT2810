@@ -4,7 +4,7 @@ import LandingPage from './LandingPage.tsx'
 import '../styling/index.css'
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Navbar from '../components/Navbar.tsx';
-import Recipe from './recipe.tsx';
+import Recipe from './Recipe.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
