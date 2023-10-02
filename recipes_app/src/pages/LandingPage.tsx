@@ -2,12 +2,19 @@ import RecipeElement from "../components/recipeElement";
 import { mockUsers } from "../mockData/mockData";
 import "../styling/LandingPage.css";
 import "../styling/recipeElement.css";
+import React from 'react';
+import { Input } from 'antd';
+
+
 
 function LandingPage() {
 
+  const { Search } = Input;
+
   return (
     <>
-      <h1>Recipes</h1>
+      <h1></h1>
+      <Search placeholder="Search" style={{ paddingTop: 40, maxWidth: 600 }} />
       <section className="recipe-grid">
         {mockUsers.map((recipe) => (
           <div key={recipe.id}>

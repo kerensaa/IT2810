@@ -8,8 +8,7 @@ function Navbar() {
         <div className='left-content'>
             <h2><a href="/" className='link'>Recipes</a></h2>
         </div>
-        <div className='right-content'> 
-          <button>Search</button>
+        <div className='right-content'>
         </div>
         </nav>
       </div>
