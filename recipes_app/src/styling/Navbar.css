@@ -1,0 +1,31 @@
+.nav{
+    width:100%;
+    background-color: white;
+    display: grid;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 7rem;
+    align-items: center;
+    grid-template-columns: 1fr 2fr;
+    flex-wrap: wrap;
+}
+
+.left-content {
+    display: flex;
+    align-items: center;
+    padding-left: 7rem;
+  }
+
+  .right-content {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    padding-right: 2rem;
+  }
+
+
+.link:hover {
+    color: black;
+}
