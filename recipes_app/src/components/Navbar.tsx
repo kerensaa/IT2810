@@ -1,14 +1,16 @@
-import React from 'react'
 import '../styling/Navbar.css'
+import { Link } from 'react-router-dom';
 
 function Navbar() {
     return (
       <div className='navbar-container'>
         <nav className='nav'>
         <div className='left-content'>
-            <h2><a href="/" className='link'>Recipes</a></h2>
+            <h2><Link to="/" >Recipes4You</Link></h2>
         </div>
         <div className='right-content'>
+          <text><Link to="/">My Ratings</Link></text>
+          <text><Link to="/">My Favorites</Link></text>
         </div>
         </nav>
       </div>

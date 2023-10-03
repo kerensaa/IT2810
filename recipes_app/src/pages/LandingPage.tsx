@@ -4,6 +4,8 @@ import "../styling/LandingPage.css";
 import "../styling/recipeElement.css";
 import React from 'react';
 import { Input } from 'antd';
+import Pagination from '@mui/material/Pagination';
+
 
 
 
@@ -26,7 +28,11 @@ function LandingPage() {
           </div>
         ))}
       </section>
+      <div className="pagination-container">
+      <Pagination count={20} color="secondary" shape="rounded"/>
+      </div>
     </>
+    
   );
 }
 
