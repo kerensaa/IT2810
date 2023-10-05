@@ -1,6 +1,5 @@
 .nav{
     width:100%;
-    /* background-color: #EAE3F1; */
     background-color: #BB99CD;
     display: grid;
     position: fixed;
@@ -13,6 +12,24 @@
     flex-wrap: wrap;
     z-index: 1000;
 }
+
+@media screen and (max-width: 1085px){
+  .nav {
+    width:100%;
+    background-color: #BB99CD;
+    display: grid;
+    position:absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 7rem;
+    align-items: center;
+    grid-template-columns: 1fr 2fr;
+    flex-wrap: wrap;
+    z-index: 1000;
+  }
+}
+
 
 .left-content {
     display: flex;
