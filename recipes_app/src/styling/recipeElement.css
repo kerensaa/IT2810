@@ -1,14 +1,24 @@
-.recipe-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Create 3 equal-width columns */
-    grid-gap: 40px; /* Add spacing between grid items */
+
+  /* For phone-sized screens */
+  @media (max-width: 798px) {
+    .recipe-grid {
+      grid-template-columns: repeat(1, 1fr); 
+    }
+  }
+
+  /* For iPad-sized screens) */
+  @media (min-width: 799px) and (max-width: 1085px) {
+    .recipe-grid {
+      grid-template-columns: repeat(2, 1fr); /* Display two columns for iPad-sized screens */
+    }
   }
 
   .recipe-element{
     display: flex;
     flex-direction: column;
-    width: 410px;
-    height: 550px;
+    min-width: 340px;
+    max-width: 430px;
+    height: 600px;
     align-items: flex-start;
     flex-shrink: 0;
     border-radius: 12px;
@@ -27,12 +37,27 @@
     /* Typography */
     color: var(--m-3-sys-light-on-surface, #1C1B1F);
     
-    font-family: Roboto;
-    font-size: 16px;
+    font-family: Inter;
+    font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: 24px; /* 150% */
     letter-spacing: 0.5px;
+  }
+
+  .rate-and-favorite{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    margin-right: 0px;
+    align-items: center;
+  }
+
+  .button-placement{
+    display: flex;
+    width: 40%;
+    justify-content: center;
   }
 
   .recipe-image {
@@ -42,17 +67,19 @@
 
   .recipe-info {
     display: flex;
-    padding: 16px;
+    padding: 4%;
     flex-direction: column;
     align-items: flex-start;
+    text-align: left;
     gap: 8px;
+    margin-top: 0;
 
     align-self: stretch;
     /* Typography */
     color: var(--m-3-sys-light-on-surface-variant, #49454F);
 
-    font-family: Roboto;
-    font-size: 14px;
+    font-family: Inter;
+    font-size: 13px;
     font-style: normal;
     font-weight: 400;
     line-height: 20px; /* 142.857% */
