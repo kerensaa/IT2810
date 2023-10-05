@@ -5,7 +5,15 @@
   text-align: center;
   margin-top: 50px;
 }
-
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Create 3 equal-width columns */
+  grid-gap: 40px; /* Add spacing between grid items */
+  margin-top: 40px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -40,4 +48,9 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.pagination-container{
+  display: flex;
+  justify-content: center;
 }
