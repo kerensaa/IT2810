@@ -13,8 +13,8 @@ export default function RecipeElement(props: RecipeElementProps){
 
     
     return (
-        <section className="recipe-element">
-            <img className="recipe-image" src={imagePath} alt={title} height={300}/>
+        <section >
+            <img className="recipe-image" src={imagePath} alt={title}/>
             <div className="recipe-title"> 
             <h3 >{title}</h3>
             <div className='rate-and-favorite'>
