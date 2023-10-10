@@ -29,6 +29,8 @@ Before you run the project, make sure to cd into /recipes_app. Then run the foll
 
 ## About our project
 
+Our project displays different recipes, with a view of all recipes and possibility to click on each recipe. Other functionalities will be added in the next phases of the project. 
+
 ## Testing
 
 To run the tests, make sure to cd into /recipes_app. Then run the following commands:
