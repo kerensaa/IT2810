@@ -1,0 +1,85 @@
+
+> vite-project@0.0.0 test
+> vitest
+
+
+ DEV  v0.34.6 /Users/alfhusem/projects/prosjekt-2/recipes_app/src/tests
+
+stderr | LandingPage.test.tsx > Renders LandingPage correctly > Should render 'Low-Fat Berry Blue Frozen Dessert' correctly
+Warning: Invalid DOM property `stroke-width`. Did you mean `strokeWidth`?
+    at path
+    at svg
+    at div
+    at Heart
+    at button
+    at div
+    at div
+    at div
+    at section
+    at RecipeElement (/Users/alfhusem/projects/prosjekt-2/recipes_app/src/components/recipeElement.tsx:10:11)
+    at a
+    at Link (/Users/alfhusem/projects/prosjekt-2/recipes_app/src/tests/LandingPage.test.tsx:3:12)
+    at div
+    at section
+    at LandingPage
+Warning: Invalid DOM property `stroke-linecap`. Did you mean `strokeLinecap`?
+    at path
+    at svg
+    at div
+    at Heart
+    at button
+    at div
+    at div
+    at div
+    at section
+    at RecipeElement (/Users/alfhusem/projects/prosjekt-2/recipes_app/src/components/recipeElement.tsx:10:11)
+    at a
+    at Link (/Users/alfhusem/projects/prosjekt-2/recipes_app/src/tests/LandingPage.test.tsx:3:12)
+    at div
+    at section
+    at LandingPage
+
+ ✓ LandingPage.test.tsx  (2 tests) 1709ms
+stderr | unknown test
+Error: Not implemented: navigation (except hash changes)
+    at module.exports (/Users/alfhusem/projects/prosjekt-2/recipes_app/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at navigateFetch (/Users/alfhusem/projects/prosjekt-2/recipes_app/node_modules/jsdom/lib/jsdom/living/window/navigation.js:77:3)
+    at exports.navigate (/Users/alfhusem/projects/prosjekt-2/recipes_app/node_modules/jsdom/lib/jsdom/living/window/navigation.js:55:3)
+    at Timeout._onTimeout (/Users/alfhusem/projects/prosjekt-2/recipes_app/node_modules/jsdom/lib/jsdom/living/nodes/HTMLHyperlinkElementUtils-impl.js:81:7)
+    at listOnTimeout (node:internal/timers:557:17)
+    at processTimers (node:internal/timers:500:7) [90mundefined[39m
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  18:38:00
+   Duration  4.05s (transform 135ms, setup 0ms, collect 1.63s, tests 1.71s, environment 378ms, prepare 114ms)
+
+
+ PASS  Waiting for file changes...
+       press h to show help, press q to quit
+[3Jc
+ RERUN  ../../../components/Heart.tsx x1
+
+ ✓ LandingPage.test.tsx  (2 tests) 2217ms
+stderr | unknown test
+Error: Not implemented: navigation (except hash changes)
+    at module.exports (/Users/alfhusem/projects/prosjekt-2/recipes_app/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+    at navigateFetch (/Users/alfhusem/projects/prosjekt-2/recipes_app/node_modules/jsdom/lib/jsdom/living/window/navigation.js:77:3)
+    at exports.navigate (/Users/alfhusem/projects/prosjekt-2/recipes_app/node_modules/jsdom/lib/jsdom/living/window/navigation.js:55:3)
+    at Timeout._onTimeout (/Users/alfhusem/projects/prosjekt-2/recipes_app/node_modules/jsdom/lib/jsdom/living/nodes/HTMLHyperlinkElementUtils-impl.js:81:7)
+    at listOnTimeout (node:internal/timers:557:17)
+    at processTimers (node:internal/timers:500:7) [90mundefined[39m
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  18:41:22
+   Duration  5.74s
+
+
+ PASS  Waiting for file changes...
+       press h to show help, press q to quit
+       rerun x1
+[2K[1A[2K[GCancelling test run. Press CTRL+c again to exit forcefully.
+
