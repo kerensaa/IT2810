@@ -42,12 +42,12 @@ export default function Recipe() {
           <div className="ingredients-card">
             <Card style={{ backgroundColor: "#F5EDF7" }}>
               <CardContent>
-              <h3>Ingredients:</h3>
-              <div>
-                {formattedIngredients.map((ingredient, index) => (
-                  <div key={index}>{ingredient}</div>
-                ))}
-              </div>
+                <h3>Ingredients:</h3>
+                <div>
+                  {formattedIngredients.map((ingredient, index) => (
+                    <div key={index}>{ingredient}</div>
+                  ))}
+                </div>
               </CardContent>
             </Card>
           </div>
