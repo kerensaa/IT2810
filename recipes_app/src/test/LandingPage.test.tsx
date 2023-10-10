@@ -1,7 +1,6 @@
 import LandingPage from "../pages/LandingPage";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { mockUsers } from "../mockData/mockData";
 
 
 vi.mock("react-router-dom", () => ({
