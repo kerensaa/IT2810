@@ -30,3 +30,7 @@ Before you run the project, make sure to cd into /recipes_app. Then run the foll
 ## About our project
 
 ## Testing
+
+To run the tests, make sure to cd into /recipes_app. Then run the following commands:
+1. Run `npm install`
+2. Run `npm run test`
