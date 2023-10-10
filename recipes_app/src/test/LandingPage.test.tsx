@@ -1,14 +1,15 @@
 import LandingPage from "../pages/LandingPage";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { LinkProps } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 
 vi.mock("react-router-dom", () => ({
-Link: ({ to, children, ...props }: any) => (
-    <a href={to} {...props}>
-    {children}
+  Link: ({ to, children, ...props }: LinkProps) => (
+    <a href={typeof to === "string" ? to : undefined} {...props}>
+      {children}
     </a>
-),
+  ),
 }));
 
 describe("Renders LandingPage correctly", async () => {
