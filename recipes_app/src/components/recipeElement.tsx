@@ -1,6 +1,6 @@
 import { Rate } from 'antd';
+import "../styling/HeartButton.css";
 import Heart from './Heart';
-import "../styling/HeartButton.css"
 
 interface RecipeElementProps{
     imagePath: string,
