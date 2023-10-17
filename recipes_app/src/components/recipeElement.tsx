@@ -1,6 +1,7 @@
-import { Rate } from 'antd';
+import { Link } from "react-router-dom";
 import "../styling/HeartButton.css";
-import Heart from './Heart';
+import Ratings from "./Ratings";
+import Favorite from "./Favorites";
 
 interface RecipeElementProps {
   recipeID: number;
