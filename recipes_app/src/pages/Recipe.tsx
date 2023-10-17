@@ -1,14 +1,20 @@
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Button,
   Card,
   CardContent,
-  Rating,
+  Container,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { SetStateAction, useState } from "react";
 import { useParams } from "react-router-dom";
-import Heart from "../components/Heart";
+import Favorite from "../components/Favorites";
+import Ratings from "../components/Ratings";
 import { mockUsers } from "../mockData/mockData";
 
 export default function Recipe() {
@@ -20,99 +26,119 @@ export default function Recipe() {
     history.back();
   };
 
+  const theme = createTheme({
+    palette: {
+      mode: "light",
+    },
+  });
+
   const formattedIngredients = matchedRecipe?.ingredients
     ? matchedRecipe.ingredients
         .split(",")
         .map((ingredient) => ingredient.trim().replace(/"/g, ""))
     : [];
-  const [rating, setRating] = useState<number | null>(null);
+  const [comment, setComment] = useState("");
 
-  const handlePostComment = () => {
-    // Handle posting a comment here
+  const handleCommentChange = (event: {
+    target: { value: SetStateAction<string> };
+  }) => {
+    setComment(event.target.value);
+  };
+  const postComment = () => {
+    console.log("Posting comment:", comment);
+    setComment("");
   };
 
   return (
     <>
-      <button className="back-button" onClick={handleGoBack}>
-        Back
-      </button>
-      <img src={matchedRecipe?.icon_path} alt={matchedRecipe?.icon_path} />
-      <div className="card-container">
-        <div className="left-column">
-          <div className="ingredients-card">
+      <ThemeProvider theme={theme}>
+        <Container>
+          <button className="back-button" onClick={handleGoBack}>
+            Back
+          </button>
+
+          <img
+            className="recipe-img"
+            src={matchedRecipe?.icon_path}
+            alt={matchedRecipe?.icon_path}
+          />
+          <div className="card-container">
             <Card style={{ backgroundColor: "#F5EDF7" }}>
-              <CardContent>
-              <h3>Ingredients:</h3>
-              <div>
-                {formattedIngredients.map((ingredient, index) => (
-                  <div key={index}>{ingredient}</div>
-                ))}
-              </div>
-              </CardContent>
-            </Card>
-          </div>
-          <div className="rating-card">
-            <Card style={{ backgroundColor: "#F5EDF7", marginTop: "20px" }}>
-              <CardContent>
-                <Typography variant="h6">
-                  What did you think about this recipe?
-                </Typography>
-                <Box mt={2}>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <div>
-                      <Rating
-                        name="recipe-rating"
-                        value={rating}
-                        onChange={(_event, newValue) => {
-                          setRating(newValue);
-                        }}
-                      />
-                    </div>
-                    <button className="like-button">
-                      <Heart></Heart>
-                    </button>
-                  </div>
-                </Box>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <textarea
-                    placeholder="Add comment..."
-                    rows={4}
-                    style={{
-                      width: "100%",
-                      fontSize: "16px",
-                      border: "1px solid #ccc",
-                    }}
-                  />
-                  <Button
-                    variant="contained"
-                    style={{
-                      backgroundColor: "#C5C6EF",
-                      marginLeft: "10px",
-                    }}
-                    onClick={handlePostComment}
-                  >
-                    Post
-                  </Button>
+              <CardContent className="recipe-card-content">
+                <Favorite title={matchedRecipe!.title}></Favorite>
+                <h2>{matchedRecipe?.title}</h2>
+                <p>{matchedRecipe?.description}</p>
+                <h3>Ingredients:</h3>
+                <div>
+                  {formattedIngredients.map((ingredient, index) => (
+                    <div key={index}>{ingredient}</div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
+            <div className="rating-card">
+              <Card style={{ backgroundColor: "#F5EDF7", marginTop: "20px" }}>
+                <CardContent>
+                  <Typography variant="h6">
+                    What did you think about this recipe?
+                  </Typography>
+                  <Box mt={2}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Ratings title={matchedRecipe!.title}></Ratings>
+                    </div>
+                  </Box>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <textarea
+                      placeholder="Add comment..."
+                      rows={4}
+                      value={comment}
+                      onChange={handleCommentChange}
+                      style={{
+                        width: "100%",
+                        fontSize: "16px",
+                        border: "1px solid #ccc",
+                      }}
+                    />
+                    <Button
+                      variant="contained"
+                      style={{
+                        backgroundColor: "#C5C6EF",
+                        marginLeft: "10px",
+                      }}
+                      onClick={postComment}
+                    >
+                      Post
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+            <Container>
+              <Accordion
+                className="comment-section"
+                style={{ backgroundColor: "#BB99CD", width: "auto" }}
+              >
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>See comments</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography></Typography>
+                </AccordionDetails>
+              </Accordion>
+            </Container>
           </div>
-        </div>
-        <div className="right-column">
-          <Card style={{ backgroundColor: "#F5EDF7" }}>
-            <CardContent className="recipe-card-content">
-              <h2>{matchedRecipe?.title}</h2>
-              <p>{matchedRecipe?.description}</p>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+        </Container>
+      </ThemeProvider>
     </>
   );
 }
