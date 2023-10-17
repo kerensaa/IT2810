@@ -11,8 +11,8 @@ const Heart = () => {
         <path
           d="M8 8.38334L15.8312 15.8742L22 8.38334"
           stroke="#EAE3F1"
-          stroke-width="15.8815"
-          stroke-linecap="round"
+          strokeWidth="15.8815"
+          strokeLinecap="round"
         />
       </svg>
     </div>

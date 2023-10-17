@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 
 interface Ratings {
-    [title: string]: number;
+    [key: string]: number;
+  }
+
+  interface Item {
+    title: string;
+    value: number;
   }
 
 function RatingsDB() {
-  const [ratings, setRatings] = useState({});
+  const [ratings, setRatings] = useState<Ratings>({});
 
   useEffect(() => {
     const openDB = indexedDB.open("ratingsDatabase", 1);
@@ -25,9 +30,9 @@ function RatingsDB() {
       const request = objectStore.getAll();
 
       request.onsuccess = () => {
-        const ratingsMap = {};
-        request.result.forEach((item) => {
-          ratingsMap[item["title"]] = item.value;
+        const ratingsMap = {} as Ratings;
+        request.result.forEach((item:  Item) => {
+          ratingsMap[item ["title"]] = item.value;
           
         });
         
