@@ -1,30 +1,37 @@
-import { Rate } from 'antd';
+import { Link } from "react-router-dom";
 import "../styling/HeartButton.css";
-import Heart from './Heart';
+import Ratings from "./Ratings";
+import Favorite from "./Favorites";
 
-interface RecipeElementProps{
-    imagePath: string,
-    title: string,
-    description: string,
+interface RecipeElementProps {
+  recipeID: number;
+  imagePath: string;
+  title: string;
+  description: string;
 }
 
-export default function RecipeElement(props: RecipeElementProps){
-    const {imagePath, title, description} = props;
+export default function RecipeElement(props: RecipeElementProps) {
+  const { recipeID, imagePath, title, description } = props;
 
-    
-    return (
-        <section >
-            <img className="recipe-image" src={imagePath} alt={title}/>
-            <div className="recipe-title"> 
-            <h3 >{title}</h3>
-            <div className='rate-and-favorite'>
-            <Rate defaultValue={0}></Rate>
-            <div className='button-placement'><button className="h-container"><Heart></Heart></button></div>
-            </div>
-            </div>
-            <p className="recipe-info"> {description}</p>
-            
-        </section>
-    )
+  return (
+    <section>
+      <Link to={`/${recipeID}`}>
+        <img className="recipe-image" src={imagePath} alt={title} />
+      </Link>
+      <div className="recipe-title">
+        <Link to={`/${recipeID}`}>
+          <h3>{title}</h3>
+        </Link>
+        <div className="rate-and-favorite">
+          <Ratings title={title}></Ratings>
+          <div className="button-placement">
+            <Favorite title={title}></Favorite>
+          </div>
+        </div>
+      </div>
+      <Link to={`/${recipeID}`}>
+        <p className="recipe-info"> {description}</p>
+      </Link>
+    </section>
+  );
 }
-
