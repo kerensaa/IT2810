@@ -9,8 +9,8 @@ function Navbar() {
             <h2><Link to="/" >Recipes4You</Link></h2>
         </div>
         <div className='right-content'>
-          <text><Link to="/">My Ratings</Link></text>
-          <text><Link to="/">My Favorites</Link></text>
+          <p><Link to="/">My Ratings</Link></p>
+          <p><Link to="/">My Favorites</Link></p>
         </div>
         </nav>
       </div>
