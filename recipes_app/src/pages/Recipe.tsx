@@ -1,4 +1,4 @@
-
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Accordion,
   AccordionDetails,
@@ -9,7 +9,7 @@ import {
   CardContent,
   Container,
   Rating,
-  Typography
+  Typography,
 } from "@mui/material";
 import { SetStateAction, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -117,9 +117,9 @@ export default function Recipe() {
           </Card>
         </div>
           <Container>
-              <Accordion className="comment-section">
+              <Accordion className="comment-section" style={{ backgroundColor: "#BB99CD", width: "auto" }}>
                   <AccordionSummary
-                  
+                  expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >

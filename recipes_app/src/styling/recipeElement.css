@@ -114,6 +114,7 @@
   }
   .rating-card{
     margin-top: 60px;
+    align-self: center;
     display: flex;
     flex-direction: column;
     width: 360px;
