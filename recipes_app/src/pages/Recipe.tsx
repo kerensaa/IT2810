@@ -1,4 +1,4 @@
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
@@ -8,12 +8,12 @@ import {
   Card,
   CardContent,
   Container,
-  Rating,
-  Typography,
+  Typography
 } from "@mui/material";
 import { SetStateAction, useState } from "react";
 import { useParams } from "react-router-dom";
-import Heart from "../components/Heart";
+import Favorite from "../components/Favorites";
+import Ratings from "../components/Ratings";
 import { mockUsers } from "../mockData/mockData";
 
 export default function Recipe() {
@@ -32,29 +32,30 @@ export default function Recipe() {
     : [];
   const [rating, setRating] = useState<number | null>(null);
 
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
 
-  const handleCommentChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+  const handleCommentChange = (event: {
+    target: { value: SetStateAction<string> };
+  }) => {
     setComment(event.target.value);
   };
   const postComment = () => {
-    console.log('Posting comment:', comment);
-    setComment('');
+    console.log("Posting comment:", comment);
+    setComment("");
   };
 
   return (
     <>
+    <Container>
       <button className="back-button" onClick={handleGoBack}>
         Back
       </button>
-     
+
       <img src={matchedRecipe?.icon_path} alt={matchedRecipe?.icon_path} />
       <div className="card-container">
         <Card style={{ backgroundColor: "#F5EDF7" }}>
           <CardContent className="recipe-card-content">
-            <button className="like-button">
-              <Heart></Heart>
-            </button>
+          <Favorite title={matchedRecipe!.title}></Favorite>
             <h2>{matchedRecipe?.title}</h2>
             <p>{matchedRecipe?.description}</p>
             <h3>Ingredients:</h3>
@@ -79,15 +80,7 @@ export default function Recipe() {
                     justifyContent: "space-between",
                   }}
                 >
-                  <div>
-                    <Rating
-                      name="recipe-rating"
-                      value={rating}
-                      onChange={(_event, newValue) => {
-                        setRating(newValue);
-                      }}
-                    />
-                  </div>
+                  <Ratings title={matchedRecipe!.title}></Ratings>
                 </div>
               </Box>
               <div style={{ display: "flex", alignItems: "center" }}>
@@ -116,23 +109,25 @@ export default function Recipe() {
             </CardContent>
           </Card>
         </div>
-          <Container>
-              <Accordion className="comment-section" style={{ backgroundColor: "#BB99CD", width: "auto" }}>
-                  <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <Typography>See comments</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>
-                    
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
-          </Container>
+        <Container>
+          <Accordion
+            className="comment-section"
+            style={{ backgroundColor: "#BB99CD", width: "auto" }}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography>See comments</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Typography></Typography>
+            </AccordionDetails>
+          </Accordion>
+        </Container>
       </div>
+    </Container>
     </>
   );
 }
