@@ -1,16 +1,26 @@
+import { Rating } from "@mui/material";
+import useIndexedDBRatings from "./RatingsDB";
 
-import { Rate } from "antd";
-import useIndexedDBFavorites from "./IndexedDB";
+interface Ratings {
+  [title: string]: number;
+}
 
-function Favorite({ title }: { title: string }) {
-  const { favorites, toggleFavorite } = useIndexedDBFavorites();
-//   const isFavorited = favorites.includes(title);
+function Ratings({ title }: { title: string }) {
+  const { ratings, toggleRatings } = useIndexedDBRatings();
+
+  const startValue = (ratings as Ratings)[title]
+    ? (ratings as Ratings)[title]
+    : 2;
 
   return (
     <>
-      <Rate defaultValue={0} onChange={(value) => toggleFavorite(title, value)}></Rate>
+      <Rating
+        name="simple-controlled"
+        value={startValue}
+        onChange={(event, newValue) => toggleRatings(title, newValue)}
+      />
     </>
   );
 }
 
-export default Favorite;
+export default Ratings;

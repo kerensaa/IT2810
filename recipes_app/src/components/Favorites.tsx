@@ -1,6 +1,6 @@
 import Heart from "./Heart";
 import "../styling/HeartButton.css";
-import useIndexedDBFavorites from "./IndexedDB";
+import useIndexedDBFavorites from "./FavoritesDB";
 
 function Favorite({ title }: { title: string }) {
   const { favorites, toggleFavorite } = useIndexedDBFavorites();
