@@ -1,21 +1,23 @@
-import { useState } from "react";
-import RecipeElement from "../components/recipeElement";
-import { mockUsers } from "../mockData/mockData";
-import "../styling/LandingPage.css";
-import "../styling/recipeElement.css";
-import { Autocomplete, TextField } from "@mui/material";
-import Pagination from "@mui/material/Pagination";
+import { useState } from 'react';
+import RecipeElement from '../components/recipeElement';
+import { mockUsers } from '../mockData/mockData';
+import '../styling/LandingPage.css';
+import '../styling/recipeElement.css';
+import { Autocomplete, TextField } from '@mui/material';
+import Pagination from '@mui/material/Pagination';
+import { usePagination } from '../utils/paginationUtils';
 
 function LandingPage() {
   const [searchResults, setSearchResults] = useState(mockUsers);
 
+  // pagination state, variables and functions
+  const elementsPerPage: number = 3;
+  const { currentPage, elementsDisplayed, handlePageChange } = usePagination(1, elementsPerPage, searchResults);
+
   function SearchFunction(values: string | null) {
     const recipeResults = mockUsers;
-
-    if (typeof values === "string" && values !== null) {
-      const recipeResults = mockUsers.filter((recipe) =>
-        recipe.title.toLowerCase().includes(values.toLowerCase())
-      );
+    if (typeof values === 'string' && values !== null) {
+      const recipeResults = mockUsers.filter((recipe) => recipe.title.toLowerCase().includes(values.toLowerCase()));
       setSearchResults(recipeResults);
     } else {
       setSearchResults(recipeResults);
@@ -24,7 +26,7 @@ function LandingPage() {
 
   return (
     <>
-      <section className={"search_bar"}>
+      <section className={'search_bar'}>
         <h1></h1>
         <Autocomplete
           disablePortal
@@ -37,11 +39,11 @@ function LandingPage() {
       </section>
       <section className="recipe-grid">
         <>
-          {searchResults.length === 0 ? (
+          {elementsDisplayed.length === 0 ? (
             <h1>No result</h1>
           ) : (
             <>
-              {searchResults.map((recipe) => (
+              {elementsDisplayed.map((recipe) => (
                 <div className="recipe-element" key={recipe.id}>
                   <RecipeElement
                     recipeID={recipe.id}
@@ -56,7 +58,13 @@ function LandingPage() {
         </>
       </section>
       <div className="pagination-container">
-        <Pagination count={20} color="secondary" shape="rounded" />
+        <Pagination
+          count={Math.ceil(mockUsers.length / elementsPerPage)}
+          color="secondary"
+          shape="rounded"
+          page={currentPage}
+          onChange={handlePageChange}
+        />
       </div>
     </>
   );
