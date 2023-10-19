@@ -32,6 +32,8 @@ export default function Recipe() {
   const [comment, setComment] = useState('');
   const { comments, addComment } = CommentsDB();
 
+  const filteredComments = comments.filter((comment) => comment.recipeId === recipeIdNum);
+
   const handleCommentChange = (event: { target: { value: SetStateAction<string> } }) => {
     setComment(event.target.value);
   };
@@ -112,7 +114,7 @@ export default function Recipe() {
               </AccordionSummary>
               <AccordionDetails>
                 <div>
-                  {comments.map((comment, index) => (
+                  {filteredComments.map((comment, index) => (
                     <div key={comment.id}>{comment.text}</div>
                   ))}
                 </div>
