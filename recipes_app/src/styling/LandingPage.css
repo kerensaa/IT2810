@@ -5,6 +5,11 @@
   text-align: center;
   margin-top: 50px;
 }
+
+.search_bar {
+  padding-top: 5vw;
+}
+
 .recipe-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Create 3 equal-width columns */
@@ -50,7 +55,7 @@
   color: #888;
 }
 
-.pagination-container{
+.pagination-container {
   display: flex;
   justify-content: center;
 }

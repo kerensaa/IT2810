@@ -6,37 +6,54 @@ import "../styling/recipeElement.css";
 import { Autocomplete, TextField } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 
-
-
 function LandingPage() {
-  const [searchResults, setSearchResults] = useState("");
+  const [searchResults, setSearchResults] = useState(mockUsers);
 
-  function SearchFunction(event, values) {
-    const recipeResults = mockUsers.filter((recipe) => recipe.title.toLowerCase().includes(values.toLowerCase()))
+  function SearchFunction(values: string | null) {
+    const recipeResults = mockUsers;
+
+    if (typeof values === "string" && values !== null) {
+      const recipeResults = mockUsers.filter((recipe) =>
+        recipe.title.toLowerCase().includes(values.toLowerCase())
+      );
+      setSearchResults(recipeResults);
+    } else {
+      setSearchResults(recipeResults);
+    }
   }
 
   return (
     <>
-      <h1></h1>
-      <Autocomplete
-        disablePortal
-        id="combo-box-demo"
-        options={mockUsers}
-        sx={{ paddingTop: 10, maxWidth: 600}}
-        onChange={(event, newValue) => SearchFunction(event, newValue)}
-        renderInput={(params) => <TextField {...params} label="Search" />}
-      />
+      <section className={"search_bar"}>
+        <h1></h1>
+        <Autocomplete
+          disablePortal
+          id="combo-box-demo"
+          options={mockUsers.map((option) => option.title)}
+          onChange={(_, newValue) => SearchFunction(newValue)}
+          renderInput={(params) => <TextField {...params} label="Search" />}
+          freeSolo
+        />
+      </section>
       <section className="recipe-grid">
-        {mockUsers.map((recipe) => (
-          <div className="recipe-element" key={recipe.id}>
-            <RecipeElement
-              recipeID={recipe.id}
-              imagePath={recipe.icon_path}
-              title={recipe.title}
-              description={recipe.description}
-            />
-          </div>
-        ))}
+        <>
+          {searchResults.length === 0 ? (
+            <h1>No result</h1>
+          ) : (
+            <>
+              {searchResults.map((recipe) => (
+                <div className="recipe-element" key={recipe.id}>
+                  <RecipeElement
+                    recipeID={recipe.id}
+                    imagePath={recipe.icon_path}
+                    title={recipe.title}
+                    description={recipe.description}
+                  />
+                </div>
+              ))}
+            </>
+          )}
+        </>
       </section>
       <div className="pagination-container">
         <Pagination count={20} color="secondary" shape="rounded" />
