@@ -49,8 +49,10 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
       </section>
       <section className="recipe-grid">
         <>
-          {elementsDisplayed.length === 0 ? (
-            <h1>No result</h1>
+          {searchResults.length === 0 ? (
+            <>
+              <h1>No result </h1>
+            </>
           ) : (
             <>
               {elementsDisplayed.map((recipe) => (
@@ -68,13 +70,17 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
         </>
       </section>
       <div className="pagination-container">
-        <Pagination
-          count={Math.ceil(props.dataSource.length / elementsPerPage)}
-          color="secondary"
-          shape="rounded"
-          page={currentPage}
-          onChange={handlePageChange}
-        />
+        {searchResults.length === 0 ? (
+          <></>
+        ) : (
+          <Pagination
+            count={Math.ceil(searchResults.length / elementsPerPage)}
+            color="secondary"
+            shape="rounded"
+            page={currentPage}
+            onChange={handlePageChange}
+          />
+        )}
       </div>
     </>
   );
