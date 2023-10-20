@@ -4,7 +4,7 @@ import '../styling/LandingPage.css';
 import '../styling/recipeElement.css';
 import Pagination from '@mui/material/Pagination';
 import { usePagination } from '../utils/paginationUtils';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Autocomplete, TextField } from '@mui/material';
 
 interface LandingPageTemplateProps {
@@ -13,6 +13,10 @@ interface LandingPageTemplateProps {
 
 function LandingPageTemplate(props: LandingPageTemplateProps) {
   const [searchResults, setSearchResults] = useState(props.dataSource);
+
+  useEffect(() => {
+    setSearchResults(props.dataSource);
+  }, [props.dataSource]);
 
   // pagination state, variables and functions
   const elementsPerPage: number = 3;
@@ -45,7 +49,6 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
       </section>
       <section className="recipe-grid">
         <>
-          {console.log(elementsDisplayed)}
           {elementsDisplayed.length === 0 ? (
             <h1>No result</h1>
           ) : (
