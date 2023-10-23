@@ -1,4 +1,4 @@
- type Recipe = {
+type Recipe = {
 
   id: number;
   title: string;

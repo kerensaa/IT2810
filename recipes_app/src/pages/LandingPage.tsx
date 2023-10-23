@@ -17,14 +17,12 @@ export type Recipe = {
 };
 
 function LandingPage() {
-  const [recipes, setRecipes] = useState<Recipe[]>([]); // initialize with an empty array
-
+  const [recipes, setRecipes] = useState<Recipe[]>([]); 
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchAllRecipes();
-      // const testData = await fetchTest();
       setRecipes(data);
-      // setTestData(testData);
+      console.log("Recipes state:", recipes);
     };
 
     fetchData();

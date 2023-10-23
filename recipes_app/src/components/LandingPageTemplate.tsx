@@ -27,12 +27,14 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
   const [searchResults, setSearchResults] = useState(props.dataSource);
 
   useEffect(() => {
+    console.log("Setting search results with:", props.dataSource);
     setSearchResults(props.dataSource);
   }, [props.dataSource]);
 
   // pagination state, variables and functions
   const elementsPerPage: number = 3;
   const { currentPage, elementsDisplayed, handlePageChange } = usePagination(1, elementsPerPage, searchResults);
+  console.log("Elements to be displayed:", elementsDisplayed);
 
   function SearchFunction(values: string | null) {
     const recipeResults = props.dataSource;

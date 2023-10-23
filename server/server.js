@@ -13,7 +13,6 @@ app.use((req, res, next) => {
 app.use(cors());
 app.use(express.json());
 app.use(require("./routes/recipes"));
-app.use(require("./routes/test"));
 
 // Handle all other routes
 app.use((req, res) => {
