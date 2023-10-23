@@ -1,11 +1,23 @@
 import RecipeElement from '../components/recipeElement';
-import { Recipe } from '../mockData/mockData';
 import '../styling/LandingPage.css';
 import '../styling/recipeElement.css';
 import Pagination from '@mui/material/Pagination';
 import { usePagination } from '../utils/paginationUtils';
 import { useEffect, useState } from 'react';
 import { Autocomplete, TextField } from '@mui/material';
+
+export type Recipe = {
+
+  id: number;
+  title: string;
+  ingredients: string;
+  description: string;
+  icon_path: string;
+  rating: string;
+  reviewCount: string;
+  instructions: string;
+  time: string;
+};
 
 interface LandingPageTemplateProps {
   dataSource: Recipe[];
