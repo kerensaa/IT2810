@@ -5,7 +5,7 @@ import '../styling/recipeElement.css';
 import Pagination from '@mui/material/Pagination';
 import { usePagination } from '../utils/paginationUtils';
 import { useEffect, useState } from 'react';
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
 interface LandingPageTemplateProps {
   dataSource: Recipe[];
@@ -37,7 +37,6 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
   return (
     <>
       <section className={'search_bar'}>
-        <h1></h1>
         <Autocomplete
           disablePortal
           id="combo-box-demo"
@@ -45,7 +44,15 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
           onChange={(_, newValue) => SearchFunction(newValue)}
           renderInput={(params) => <TextField {...params} label="Search" />}
           freeSolo
+          fullWidth
         />
+        <FormControl className="sort_select">
+          <InputLabel>Sort</InputLabel>
+          <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Age">
+            <MenuItem>Date</MenuItem>
+            <MenuItem>Cooking Time</MenuItem>
+          </Select>
+        </FormControl>
       </section>
       <section className="recipe-grid">
         <>
