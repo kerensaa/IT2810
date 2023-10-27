@@ -16,7 +16,7 @@ export default function MyFavorites() {
 
     fetchData();
   }, []);
-  const favoritedRecipes = recipes.filter((recipe) => favorites.includes(recipe.title));
+  const favoritedRecipes = recipes.filter((recipe) => favorites.includes(recipe.name));
 
   return (
     <>

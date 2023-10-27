@@ -28,7 +28,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
     const recipeResults = props.dataSource;
     if (typeof values === 'string' && values !== null) {
       const recipeResults = props.dataSource.filter((recipe) =>
-        recipe.title.toLowerCase().includes(values.toLowerCase()),
+        recipe.name.toLowerCase().includes(values.toLowerCase()),
       );
       setSearchResults(recipeResults);
     } else {
@@ -43,7 +43,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
         <Autocomplete
           disablePortal
           id="combo-box-demo"
-          options={props.dataSource.map((option) => option.title)}
+          options={props.dataSource.map((option) => option.name)}
           onChange={(_, newValue) => SearchFunction(newValue)}
           renderInput={(params) => <TextField {...params} label="Search" />}
           freeSolo
@@ -53,7 +53,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
         <>
           {searchResults.length === 0 ? (
             <>
-              <h1>No result </h1>
+              <h1>Loading...</h1>
             </>
           ) : (
             <>
@@ -61,8 +61,8 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
                 <div className="recipe-element" key={recipe.id}>
                   <RecipeElement
                     recipeID={recipe.id}
-                    imagePath={recipe.icon_path}
-                    title={recipe.title}
+                    imagePath={recipe.image_url}
+                    title={recipe.name}
                     description={recipe.description}
                   />
                 </div>

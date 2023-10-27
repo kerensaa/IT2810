@@ -1,13 +1,23 @@
-export type RecipeType = {
+interface Review {
+    name: string;
+    details: {
+        reviewText: string; 
+        rating: number;
+    };
+  }
 
+export type RecipeType = {
     id: number;
-    title: string;
-    ingredients: string;
+    name: string;
+    ingredients: string[];
     description: string;
-    icon_path: string;
-    rating: string;
-    reviewCount: string;
+    image_url: string;
+    rating: number[];
     instructions: string;
-    time: string;
+    cuisine: string;
+    course: string;
+    diet: string;
+    prep_time: string;
+    reviews?: Review[];
   };
   

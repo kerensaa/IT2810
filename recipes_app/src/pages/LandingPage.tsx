@@ -10,7 +10,6 @@ function LandingPage() {
     const fetchData = async () => {
       const data = await fetchAllRecipes();
       setRecipes(data);
-      console.log("Recipes state:", recipes);
     };
 
     fetchData();

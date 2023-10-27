@@ -20,7 +20,7 @@ export default function MyRatings() {
 
     fetchData();
   }, []);
-  const ratedRecipes = recipes.filter((recipe) => (ratings as Ratings)[recipe.title]);
+  const ratedRecipes = recipes.filter((recipe) => (ratings as Ratings)[recipe.name]);
 
   return (
     <>

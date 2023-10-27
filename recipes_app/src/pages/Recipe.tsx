@@ -55,11 +55,6 @@ export default function Recipe() {
     },
   });
 
-  const formattedIngredients = recipe?.ingredients
-    ? recipe.ingredients
-        .split(",")
-        .map((ingredient) => ingredient.trim().replace(/"/g, ""))
-    : [];
   const [comment, setComment] = useState("");
 
   const handleCommentChange = (event: {
@@ -88,18 +83,18 @@ export default function Recipe() {
 
           <img
             className="recipe-img"
-            src={recipe?.icon_path}
-            alt={recipe?.icon_path}
+            src={recipe?.image_url}
+            alt={recipe?.image_url}
           />
           <div className="card-container">
             <Card style={{ backgroundColor: "#F5EDF7" }}>
               <CardContent className="recipe-card-content">
-                <Favorite title={recipe!.title}></Favorite>
-                <h2>{recipe?.title}</h2>
+                <Favorite title={recipe!.name}></Favorite>
+                <h2>{recipe?.name}</h2>
                 <p>{recipe?.description}</p>
                 <h3>Ingredients:</h3>
                 <div>
-                  {formattedIngredients.map((ingredient, index) => (
+                  {recipe?.ingredients.map((ingredient, index) => (
                     <div key={index}>{ingredient}</div>
                   ))}
                 </div>
@@ -119,7 +114,7 @@ export default function Recipe() {
                         justifyContent: "space-between",
                       }}
                     >
-                      <Ratings title={recipe.title}></Ratings>
+                      <Ratings title={recipe.name}></Ratings>
                     </div>
                   </Box>
                   <div style={{ display: "flex", alignItems: "center" }}>
