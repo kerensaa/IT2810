@@ -13,13 +13,12 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { SetStateAction, useEffect, useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CommentsDB from '../components/CommentsDB';
 import Favorite from '../components/Favorites';
 import Ratings from '../components/Ratings';
 import { mockUsers } from '../mockData/mockData';
-const [isLoading, setIsLoading] = useState(true);
 
 export default function Recipe() {
   const { recipeId } = useParams();
@@ -48,18 +47,8 @@ export default function Recipe() {
       setComment('');
     }
   };
-
-  useEffect(() => {
-    if (isLoading) {
-      setIsLoading(false);
-    }
-
-    if (!comments || comments.length === 0) {
-      console.error('Comments not loaded yet.');
-    }
-  }, [comments, isLoading]);
-  const handleDeleteComment = (commentId: number | undefined) => {
-    if (commentId !== undefined) {
+  const handleDeleteComment = (commentId: number) => {
+    if (commentId) {
       deleteComment(commentId);
     } else {
       console.error('Invalid commentId:', commentId);
