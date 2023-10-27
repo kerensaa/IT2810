@@ -11,17 +11,40 @@ import {
   Typography,
 } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Favorite from "../components/Favorites";
 import Ratings from "../components/Ratings";
-import { mockUsers } from "../mockData/mockData";
+import { fetchRecipeById } from "../api";
+import { RecipeType } from "../types";
 
 export default function Recipe() {
   const { recipeId } = useParams();
   const recipeIdNum = parseInt(recipeId!, 10);
-  const matchedRecipe = mockUsers.find((recipe) => recipe.id === recipeIdNum);
+  const [recipe, setRecipe] = useState<RecipeType | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchRecipeById(recipeIdNum);
+   
+        if (data) {
+          setRecipe(data);
+        } else {
+          setError("Recipe not found");
+        }
+      } catch (error) {
+        console.error("Fetching error:", error); // Check any errors
+        setError("Error fetching recipe");
+      }
+   };
+   
+    
+    
+    fetchData();
+  }, [recipeIdNum]);
   const handleGoBack = () => {
     history.back();
   };
@@ -32,8 +55,8 @@ export default function Recipe() {
     },
   });
 
-  const formattedIngredients = matchedRecipe?.ingredients
-    ? matchedRecipe.ingredients
+  const formattedIngredients = recipe?.ingredients
+    ? recipe.ingredients
         .split(",")
         .map((ingredient) => ingredient.trim().replace(/"/g, ""))
     : [];
@@ -48,7 +71,13 @@ export default function Recipe() {
     console.log("Posting comment:", comment);
     setComment("");
   };
-
+  
+  if (!recipe) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>{error}</div>;
+  }
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -59,15 +88,15 @@ export default function Recipe() {
 
           <img
             className="recipe-img"
-            src={matchedRecipe?.icon_path}
-            alt={matchedRecipe?.icon_path}
+            src={recipe?.icon_path}
+            alt={recipe?.icon_path}
           />
           <div className="card-container">
             <Card style={{ backgroundColor: "#F5EDF7" }}>
               <CardContent className="recipe-card-content">
-                <Favorite title={matchedRecipe!.title}></Favorite>
-                <h2>{matchedRecipe?.title}</h2>
-                <p>{matchedRecipe?.description}</p>
+                <Favorite title={recipe!.title}></Favorite>
+                <h2>{recipe?.title}</h2>
+                <p>{recipe?.description}</p>
                 <h3>Ingredients:</h3>
                 <div>
                   {formattedIngredients.map((ingredient, index) => (
@@ -90,7 +119,7 @@ export default function Recipe() {
                         justifyContent: "space-between",
                       }}
                     >
-                      <Ratings title={matchedRecipe!.title}></Ratings>
+                      <Ratings title={recipe.title}></Ratings>
                     </div>
                   </Box>
                   <div style={{ display: "flex", alignItems: "center" }}>

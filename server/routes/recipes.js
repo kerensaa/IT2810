@@ -7,10 +7,8 @@ const ObjectId = require("mongodb").ObjectId;
  
 
 recipeRoutes.get("/recipe", (req, res) => {
-  console.log("Inside /recipe route.");
   
   const db_connect = dbo.getDb("recipe_db");
-  console.log("Obtained database connection.");
   
   db_connect.collection("recipes")
   .find({}).limit(10).toArray()
@@ -22,23 +20,28 @@ recipeRoutes.get("/recipe", (req, res) => {
       res.status(500).send('Error fetching recipes');
   });
 });
-
  
 // get a single recipe by id
-recipeRoutes.route("/recipe/:id").get(function (req, res) {
- let db_connect = dbo.getDb();
- let myquery = { _id: ObjectId(req.params.id) };
- db_connect
-  .collection("recipes")
-  .find({})
-  .toArray(function (err, result) {
-    if (err) {
-      console.error("Database error:", err);
-      res.status(500).json({ error: "Failed to fetch recipes" });
-      return;
-    }
-    res.json(result);
-  });
+recipeRoutes.get("/recipe/:id", (req, res) => {
+  console.log("Fetching recipe for ID:", req.params.id);
+  
+  const db_connect = dbo.getDb("recipe_db");
+  const recipeId = parseInt(req.params.id, 10);
+  
+  db_connect.collection("recipes")
+    .findOne({ id: recipeId })
+    .then(result => {
+      console.log("Found recipe:", result);
+      if (result) {
+        res.json(result);
+      } else {
+        res.status(404).json({ error: 'Recipe not found' });
+      }
+    })
+    .catch(err => {
+      console.error("Error fetching recipe:", err);
+      res.status(500).json({ error: 'Error fetching recipe' });
+    });
 });
 
  
@@ -76,15 +79,15 @@ recipeRoutes.route("/update/:id").post(function (req, response) {
    });
 });
  
-// delete a recipe
-recipeRoutes.route("/:id").delete((req, response) => {
- let db_connect = dbo.getDb();
- let myquery = { _id: ObjectId(req.params.id) };
- db_connect.collection("recipes").deleteOne(myquery, function (err, obj) {
-   if (err) throw err;
-   console.log("1 document deleted");
-   response.json(obj);
- });
-});
+// // delete a recipe
+// recipeRoutes.route("/:id").delete((req, response) => {
+//  let db_connect = dbo.getDb();
+//  let myquery = { _id: ObjectId(req.params.id) };
+//  db_connect.collection("recipes").deleteOne(myquery, function (err, obj) {
+//    if (err) throw err;
+//    console.log("1 document deleted");
+//    response.json(obj);
+//  });
+// });
  
 module.exports = recipeRoutes;

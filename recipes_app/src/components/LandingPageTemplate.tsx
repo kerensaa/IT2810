@@ -5,22 +5,10 @@ import Pagination from '@mui/material/Pagination';
 import { usePagination } from '../utils/paginationUtils';
 import { useEffect, useState } from 'react';
 import { Autocomplete, TextField } from '@mui/material';
-
-export type Recipe = {
-
-  id: number;
-  title: string;
-  ingredients: string;
-  description: string;
-  icon_path: string;
-  rating: string;
-  reviewCount: string;
-  instructions: string;
-  time: string;
-};
+import { RecipeType } from "../types";
 
 interface LandingPageTemplateProps {
-  dataSource: Recipe[];
+  dataSource: RecipeType[];
 }
 
 function LandingPageTemplate(props: LandingPageTemplateProps) {
