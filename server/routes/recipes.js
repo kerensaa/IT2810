@@ -3,9 +3,8 @@ const recipeRoutes = express.Router();
  const dbo = require("../db/conn");
  
 // convert the id from string to ObjectId for the _id.
-const ObjectId = require("mongodb").ObjectId;
 
-recipeRoutes.get("/recipe", (res) => {
+recipeRoutes.get("/recipe", (req, res) => {
   
   const db_connect = dbo.getDb("recipe_db");
   
@@ -64,8 +63,8 @@ recipeRoutes.post("/update/:id", (req, res) => {
     }
   });
 
-  if (updateValues.reviews) {
-    updateObject['reviews'] = { $push: { reviews: { $each: updateValues.reviews } } };
+  if (req.body.reviews) {
+    updateObject['reviews'] = { $push: { reviews: { $each: req.body.reviews } } };
   }
   const newvalues = {
     $set: updateObject

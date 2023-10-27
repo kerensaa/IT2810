@@ -53,7 +53,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
         <>
           {searchResults.length === 0 ? (
             <>
-              <h1>Loading...</h1>
+              <h1>Loading...</h1> {/* TODO: No results if list is empty, loading before fetch is complete */}
             </>
           ) : (
             <>

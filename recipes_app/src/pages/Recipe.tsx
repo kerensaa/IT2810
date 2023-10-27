@@ -15,7 +15,7 @@ import { SetStateAction, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Favorite from "../components/Favorites";
 import Ratings from "../components/Ratings";
-import { fetchRecipeById } from "../api";
+import { fetchRecipeById, postReviewToRecipe } from "../api";
 import { RecipeType } from "../types";
 
 export default function Recipe() {
@@ -23,7 +23,8 @@ export default function Recipe() {
   const recipeIdNum = parseInt(recipeId!, 10);
   const [recipe, setRecipe] = useState<RecipeType | null>(null);
   const [error, setError] = useState<string | null>(null);
-  
+  const [name, setName] = useState("");
+  const [rating, setRating] = useState(0);  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,11 +63,44 @@ export default function Recipe() {
   }) => {
     setComment(event.target.value);
   };
-  const postComment = () => {
-    console.log("Posting comment:", comment);
-    setComment("");
-  };
   
+  const postComment = async () => {
+    console.log("Posting comment:", comment);
+
+    // Construct the review object.
+    const review = {
+      name: name,
+      details: {
+        reviewText: comment,
+        rating: rating
+      }
+    };
+
+    try {
+      // Send the review to the backend.
+      const response = await postReviewToRecipe(recipeIdNum, review);
+      console.log("Review posted:", response);
+
+      // Clear the input fields.
+      setComment("");
+      setName("");
+      setRating(0);
+    } catch (error) {
+      console.error("Error posting the review:", error);
+    }
+};
+
+  
+  const canSubmit = name && rating && comment;
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
+  const handleRatingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRating(Number(e.target.value));  // Convert string to number.
+  };
+
   if (!recipe) {
     return <div>Loading...</div>;
   }
@@ -102,7 +136,7 @@ export default function Recipe() {
             </Card>
             <div className="rating-card">
               <Card style={{ backgroundColor: "#F5EDF7", marginTop: "20px" }}>
-                <CardContent>
+              <CardContent>
                   <Typography variant="h6">
                     What did you think about this recipe?
                   </Typography>
@@ -114,8 +148,19 @@ export default function Recipe() {
                         justifyContent: "space-between",
                       }}
                     >
-                      <Ratings title={recipe.name}></Ratings>
+                        <Ratings 
+                          title={recipe.name}
+                          value={rating}
+                          onChange={(newRating) => setRating(newRating)}
+                        />
                     </div>
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={handleNameChange}
+                      placeholder="Your name"
+                      style={{ width: "100%", marginTop: "10px", padding: "5px" }}
+                    />
                   </Box>
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <textarea
@@ -129,6 +174,7 @@ export default function Recipe() {
                         border: "1px solid #ccc",
                       }}
                     />
+                    {/* Disable the Post button if canSubmit is false */}
                     <Button
                       variant="contained"
                       style={{
@@ -136,6 +182,7 @@ export default function Recipe() {
                         marginLeft: "10px",
                       }}
                       onClick={postComment}
+                      disabled={!canSubmit}
                     >
                       Post
                     </Button>
