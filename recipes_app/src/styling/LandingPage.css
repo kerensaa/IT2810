@@ -1,12 +1,14 @@
 #root {
   max-width: 1380px;
-  margin: 0 auto;
-  padding: 2rem;
+  padding-top: 2rem;
   text-align: center;
   margin-top: 50px;
 }
 
 .search_bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
   padding-top: 5vw;
 }
 
@@ -30,6 +32,10 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.sort_select {
+  width: 18%;
 }
 
 @keyframes logo-spin {
@@ -58,4 +64,14 @@
 .pagination-container {
   display: flex;
   justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-page {
+  background-color: #f5edf7;
+  width: 30%;
 }
