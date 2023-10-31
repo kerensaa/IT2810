@@ -12,7 +12,7 @@ interface LandingPageTemplateProps {
 }
 
 function LandingPageTemplate(props: LandingPageTemplateProps) {
-  const [searchResults, setSearchResults] = useState<RecipeType[]>([]); // Specify the type explicitly
+  const [searchResults, setSearchResults] = useState<RecipeType[]>(props.dataSource);
   const [isLoading, setIsLoading] = useState(true);
   const [showNoResults, setShowNoResults] = useState(false);
 
@@ -34,7 +34,6 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
   function SearchFunction(values: string | null) {
     setIsLoading(true);
     setShowNoResults(false);
-    const recipeResults = props.dataSource;
     if (typeof values === 'string' && values !== null) {
       const recipeResults = props.dataSource.filter((recipe) =>
         recipe.name.toLowerCase().includes(values.toLowerCase()),
@@ -44,7 +43,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
         setShowNoResults(true);
       }
     } else {
-      setSearchResults(recipeResults);
+      setSearchResults(props.dataSource);
     }
     setIsLoading(false);
   }
@@ -85,7 +84,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
           <></>
         ) : (
           <Pagination
-            count={Math.ceil(elementsDisplayed.length / elementsPerPage)}
+            count={Math.ceil(searchResults.length / elementsPerPage)}
             color="secondary"
             shape="rounded"
             page={currentPage}
