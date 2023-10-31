@@ -1,39 +1,52 @@
+import { Autocomplete, TextField } from '@mui/material';
+import Pagination from '@mui/material/Pagination';
+import { useEffect, useState } from 'react';
 import RecipeElement from '../components/recipeElement';
 import '../styling/LandingPage.css';
 import '../styling/recipeElement.css';
-import Pagination from '@mui/material/Pagination';
+import { RecipeType } from '../types';
 import { usePagination } from '../utils/paginationUtils';
-import { useEffect, useState } from 'react';
-import { Autocomplete, TextField } from '@mui/material';
-import { RecipeType } from "../types";
 
 interface LandingPageTemplateProps {
   dataSource: RecipeType[];
 }
 
 function LandingPageTemplate(props: LandingPageTemplateProps) {
-  const [searchResults, setSearchResults] = useState(props.dataSource);
+  const [searchResults, setSearchResults] = useState<RecipeType[]>([]); // Specify the type explicitly
+  const [isLoading, setIsLoading] = useState(true);
+  const [showNoResults, setShowNoResults] = useState(false);
 
   useEffect(() => {
-    console.log("Setting search results with:", props.dataSource);
-    setSearchResults(props.dataSource);
+    setIsLoading(true);
+    console.log('Setting search results with:', props.dataSource);
+
+    setTimeout(() => {
+      setSearchResults(props.dataSource);
+      setIsLoading(false);
+    }, 1000);
   }, [props.dataSource]);
 
-  // pagination state, variables and functions
+  // pagination state, variables, and functions
   const elementsPerPage: number = 3;
   const { currentPage, elementsDisplayed, handlePageChange } = usePagination(1, elementsPerPage, searchResults);
-  console.log("Elements to be displayed:", elementsDisplayed);
+  console.log('Elements to be displayed:', elementsDisplayed);
 
   function SearchFunction(values: string | null) {
+    setIsLoading(true);
+    setShowNoResults(false);
     const recipeResults = props.dataSource;
     if (typeof values === 'string' && values !== null) {
       const recipeResults = props.dataSource.filter((recipe) =>
         recipe.name.toLowerCase().includes(values.toLowerCase()),
       );
       setSearchResults(recipeResults);
+      if (recipeResults.length === 0) {
+        setShowNoResults(true);
+      }
     } else {
       setSearchResults(recipeResults);
     }
+    setIsLoading(false);
   }
 
   return (
@@ -50,33 +63,29 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
         />
       </section>
       <section className="recipe-grid">
-        <>
-          {searchResults.length === 0 ? (
-            <>
-              <h1>Loading...</h1>
-            </>
-          ) : (
-            <>
-              {elementsDisplayed.map((recipe) => (
-                <div className="recipe-element" key={recipe.id}>
-                  <RecipeElement
-                    recipeID={recipe.id}
-                    imagePath={recipe.image_url}
-                    title={recipe.name}
-                    description={recipe.description}
-                  />
-                </div>
-              ))}
-            </>
-          )}
-        </>
+        {isLoading ? (
+          <h1>Loading...</h1>
+        ) : showNoResults ? (
+          <h1>No results</h1>
+        ) : (
+          elementsDisplayed.map((recipe) => (
+            <div className="recipe-element" key={recipe.id}>
+              <RecipeElement
+                recipeID={recipe.id}
+                imagePath={recipe.image_url}
+                title={recipe.name}
+                description={recipe.description}
+              />
+            </div>
+          ))
+        )}
       </section>
       <div className="pagination-container">
-        {searchResults.length === 0 ? (
+        {isLoading || showNoResults ? (
           <></>
         ) : (
           <Pagination
-            count={Math.ceil(searchResults.length / elementsPerPage)}
+            count={Math.ceil(elementsDisplayed.length / elementsPerPage)}
             color="secondary"
             shape="rounded"
             page={currentPage}
