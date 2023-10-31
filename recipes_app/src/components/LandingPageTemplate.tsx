@@ -1,32 +1,34 @@
 import RecipeElement from '../components/recipeElement';
-import { Recipe } from '../mockData/mockData';
 import '../styling/LandingPage.css';
 import '../styling/recipeElement.css';
 import Pagination from '@mui/material/Pagination';
 import { usePagination } from '../utils/paginationUtils';
 import { useEffect, useState } from 'react';
 import { Autocomplete, TextField } from '@mui/material';
+import { RecipeType } from "../types";
 
 interface LandingPageTemplateProps {
-  dataSource: Recipe[];
+  dataSource: RecipeType[];
 }
 
 function LandingPageTemplate(props: LandingPageTemplateProps) {
   const [searchResults, setSearchResults] = useState(props.dataSource);
 
   useEffect(() => {
+    console.log("Setting search results with:", props.dataSource);
     setSearchResults(props.dataSource);
   }, [props.dataSource]);
 
   // pagination state, variables and functions
   const elementsPerPage: number = 3;
   const { currentPage, elementsDisplayed, handlePageChange } = usePagination(1, elementsPerPage, searchResults);
+  console.log("Elements to be displayed:", elementsDisplayed);
 
   function SearchFunction(values: string | null) {
     const recipeResults = props.dataSource;
     if (typeof values === 'string' && values !== null) {
       const recipeResults = props.dataSource.filter((recipe) =>
-        recipe.title.toLowerCase().includes(values.toLowerCase()),
+        recipe.name.toLowerCase().includes(values.toLowerCase()),
       );
       setSearchResults(recipeResults);
     } else {
@@ -41,7 +43,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
         <Autocomplete
           disablePortal
           id="combo-box-demo"
-          options={props.dataSource.map((option) => option.title)}
+          options={props.dataSource.map((option) => option.name)}
           onChange={(_, newValue) => SearchFunction(newValue)}
           renderInput={(params) => <TextField {...params} label="Search" />}
           freeSolo
@@ -51,7 +53,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
         <>
           {searchResults.length === 0 ? (
             <>
-              <h1>No result </h1>
+              <h1>Loading...</h1>
             </>
           ) : (
             <>
@@ -59,8 +61,8 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
                 <div className="recipe-element" key={recipe.id}>
                   <RecipeElement
                     recipeID={recipe.id}
-                    imagePath={recipe.icon_path}
-                    title={recipe.title}
+                    imagePath={recipe.image_url}
+                    title={recipe.name}
                     description={recipe.description}
                   />
                 </div>

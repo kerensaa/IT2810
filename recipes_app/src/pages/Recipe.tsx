@@ -13,25 +13,42 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { fetchRecipeById } from '../api';
 import CommentsDB from '../components/CommentsDB';
 import Favorite from '../components/Favorites';
 import Ratings from '../components/Ratings';
-import { mockUsers } from '../mockData/mockData';
+import { RecipeType } from '../types';
 
 export default function Recipe() {
   const { recipeId } = useParams();
   const recipeIdNum = parseInt(recipeId!, 10);
-  const matchedRecipe = mockUsers.find((recipe) => recipe.id === recipeIdNum);
+  const [recipe, setRecipe] = useState<RecipeType | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchRecipeById(recipeIdNum);
+
+        if (data) {
+          setRecipe(data);
+        } else {
+          setError('Recipe not found');
+        }
+      } catch (error) {
+        console.error('Fetching error:', error);
+        setError('Error fetching recipe');
+      }
+    };
+
+    fetchData();
+  }, [recipeIdNum]);
   const handleGoBack = () => {
     history.back();
   };
 
-  const formattedIngredients = matchedRecipe?.ingredients
-    ? matchedRecipe.ingredients.split(',').map((ingredient) => ingredient.trim().replace(/"/g, ''))
-    : [];
   const [comment, setComment] = useState('');
   const { comments, addComment, deleteComment } = CommentsDB();
 
@@ -55,6 +72,12 @@ export default function Recipe() {
     }
   };
 
+  if (!recipe) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>{error}</div>;
+  }
   return (
     <>
       <Container>
@@ -62,19 +85,15 @@ export default function Recipe() {
           Back
         </button>
 
-        <img className="recipe-img" src={matchedRecipe?.icon_path} alt={matchedRecipe?.icon_path} />
+        <img className="recipe-img" src={recipe?.image_url} alt={recipe?.image_url} />
         <div className="card-container">
           <Card style={{ backgroundColor: '#F5EDF7' }}>
             <CardContent className="recipe-card-content">
-              <Favorite title={matchedRecipe!.title}></Favorite>
-              <h2>{matchedRecipe?.title}</h2>
-              <p>{matchedRecipe?.description}</p>
+              <Favorite title={recipe!.name}></Favorite>
+              <h2>{recipe?.name}</h2>
+              <p>{recipe?.description}</p>
               <h3>Ingredients:</h3>
-              <div>
-                {formattedIngredients.map((ingredient, index) => (
-                  <div key={index}>{ingredient}</div>
-                ))}
-              </div>
+              <div>{recipe?.ingredients.map((ingredient, index) => <div key={index}>{ingredient}</div>)}</div>
             </CardContent>
           </Card>
           <div className="rating-card">
@@ -89,7 +108,7 @@ export default function Recipe() {
                       justifyContent: 'space-between',
                     }}
                   >
-                    <Ratings title={matchedRecipe!.title}></Ratings>
+                    <Ratings title={recipe.name}></Ratings>
                   </div>
                 </Box>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
