@@ -3,8 +3,9 @@ import '../styling/LandingPage.css';
 import '../styling/recipeElement.css';
 import Pagination from '@mui/material/Pagination';
 import { usePagination } from '../utils/paginationUtils';
+import { useSorting } from '../utils/sortUtils';
 import { useEffect, useState } from 'react';
-import { Autocomplete, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Autocomplete, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
 import { RecipeType } from '../types';
 
 interface LandingPageTemplateProps {
@@ -36,6 +37,8 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
     }
   }
 
+  const handleSort = (event: SelectChangeEvent) => {};
+
   return (
     <>
       <section className={'search_bar'}>
@@ -50,9 +53,9 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
         />
         <FormControl className="sort_select">
           <InputLabel>Sort</InputLabel>
-          <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Age">
-            <MenuItem>Date</MenuItem>
-            <MenuItem>Cooking Time</MenuItem>
+          <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Age" onChange={handleSort()}>
+            <MenuItem>Name</MenuItem>
+            <MenuItem>Prep Time</MenuItem>
           </Select>
         </FormControl>
       </section>
