@@ -12,18 +12,12 @@ interface LandingPageTemplateProps {
 }
 
 function LandingPageTemplate(props: LandingPageTemplateProps) {
-  const [searchResults, setSearchResults] = useState<RecipeType[]>(props.dataSource);
-  const [isLoading, setIsLoading] = useState(true);
-  const [showNoResults, setShowNoResults] = useState(false);
+  const [searchResults, setSearchResults] = useState(props.dataSource);
+  const [noResults, setNoResults] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
     console.log('Setting search results with:', props.dataSource);
-
-    setTimeout(() => {
-      setSearchResults(props.dataSource);
-      setIsLoading(false);
-    }, 1000);
+    setSearchResults(props.dataSource);
   }, [props.dataSource]);
 
   // pagination state, variables, and functions
@@ -32,20 +26,16 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
   console.log('Elements to be displayed:', elementsDisplayed);
 
   function SearchFunction(values: string | null) {
-    setIsLoading(true);
-    setShowNoResults(false);
     if (typeof values === 'string' && values !== null) {
       const recipeResults = props.dataSource.filter((recipe) =>
         recipe.name.toLowerCase().includes(values.toLowerCase()),
       );
       setSearchResults(recipeResults);
-      if (recipeResults.length === 0) {
-        setShowNoResults(true);
-      }
+      setNoResults(recipeResults.length === 0);
     } else {
       setSearchResults(props.dataSource);
+      setNoResults(false);
     }
-    setIsLoading(false);
   }
 
   return (
@@ -62,10 +52,8 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
         />
       </section>
       <section className="recipe-grid">
-        {isLoading ? (
-          <h1>Loading...</h1>
-        ) : showNoResults ? (
-          <h1>No results</h1>
+        {searchResults.length === 0 ? (
+          <h1>{noResults ? 'No results' : 'Loading...'}</h1>
         ) : (
           elementsDisplayed.map((recipe) => (
             <div className="recipe-element" key={recipe.id}>
@@ -80,7 +68,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
         )}
       </section>
       <div className="pagination-container">
-        {isLoading || showNoResults ? (
+        {searchResults.length === 0 ? (
           <></>
         ) : (
           <Pagination
