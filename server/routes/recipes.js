@@ -9,7 +9,7 @@ recipeRoutes.get("/recipe", (req, res) => {
   const db_connect = dbo.getDb("recipe_db");
   
   db_connect.collection("indian_recipes")
-  .find({}).limit(10).toArray()
+  .find({}).toArray()
   .then(result => {
       res.json(result);
   })
