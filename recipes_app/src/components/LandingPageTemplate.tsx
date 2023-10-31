@@ -4,8 +4,9 @@ import '../styling/recipeElement.css';
 import Pagination from '@mui/material/Pagination';
 import { usePagination } from '../utils/paginationUtils';
 import { useEffect, useState } from 'react';
-import { Autocomplete, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Autocomplete, TextField } from '@mui/material';
 import { RecipeType } from '../types';
+import Sorting from './Sorting';
 
 interface LandingPageTemplateProps {
   dataSource: RecipeType[];
@@ -40,13 +41,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
     <>
       <div className="container">
         <section className="left-page">
-          <FormControl className="sort_select">
-            <InputLabel>Sort</InputLabel>
-            <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Age">
-              <MenuItem>Date</MenuItem>
-              <MenuItem>Cooking Time</MenuItem>
-            </Select>
-          </FormControl>
+          <Sorting></Sorting>
         </section>
         <section className="right-page">
           <section className={'search_bar'}>
