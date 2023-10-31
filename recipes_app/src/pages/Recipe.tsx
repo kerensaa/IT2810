@@ -94,7 +94,7 @@ export default function Recipe() {
     } catch (error) {
       console.error("Error posting the review:", error);
     }
-};
+  };
 
   
   const canSubmit = name && rating && comment;
