@@ -5,12 +5,23 @@ const recipeRoutes = express.Router();
 // convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
 
+
 recipeRoutes.get("/recipe", (req, res) => {
   
   const db_connect = dbo.getDb("recipe_db");
-  
+  let sortQuery = {};
+  switch(req.query.sort) {
+    case 'prep_time':
+      sortQuery = {prep_time: 1};
+      break;
+    case 'name':
+      sortQuery = {name: 1};
+      break;
+    default:
+      break;
+  }
   db_connect.collection("indian_recipes")
-  .find({}).limit(10).toArray()
+  .find({}).sort(sortQuery).toArray()
   .then(result => {
       res.json(result);
   })
@@ -19,6 +30,8 @@ recipeRoutes.get("/recipe", (req, res) => {
       res.status(500).send('Error fetching recipes');
   });
 });
+
+
  
 // get a single recipe by id
 recipeRoutes.get("/recipe/:id", (req, res) => {
@@ -86,5 +99,7 @@ recipeRoutes.post("/update/:id", (req, res) => {
       res.status(500).json({ error: 'Error updating recipe' });
     });
 });
+
+
  
 module.exports = recipeRoutes;

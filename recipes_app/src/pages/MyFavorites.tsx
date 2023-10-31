@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import useIndexedDBFavorites from '../components/FavoritesDB';
 import LandingPageTemplate from '../components/LandingPageTemplate';
 import { RecipeType } from '../types';
-import { fetchAllRecipes } from '../api';
+import { fetchRecipes } from '../api';
 
 export default function MyFavorites() {
   const { favorites } = useIndexedDBFavorites();
   const [recipes, setRecipes] = useState<RecipeType[]>([]); 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchAllRecipes();
+      const data = await fetchRecipes();
       setRecipes(data);
       console.log("Recipes state:", recipes);
     };
@@ -21,7 +21,9 @@ export default function MyFavorites() {
   return (
     <>
       <h1>My favorites</h1>
-      <LandingPageTemplate dataSource={favoritedRecipes} />
+      <LandingPageTemplate dataSource={favoritedRecipes} sortingOption={''} onSortChange={function (value: string): void {
+        throw new Error('Function not implemented.');
+      } } />
     </>
   );
 }

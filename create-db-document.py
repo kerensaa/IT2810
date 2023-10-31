@@ -20,8 +20,15 @@ df = pd.read_csv(csv_file_path)
 # Add 'id' column with unique integers starting from 1
 df['id'] = df.index + 1
 
+# Rearrange columns to make 'id' the first column
+df = df[['id'] + [col for col in df if col != 'id']]
+
+# Convert 'prep_time' from string format to integer
+# Extract the number from the string and convert to integer
+df['prep_time'] = df['prep_time'].str.extract(r'(\d+)')[0].fillna(0).astype(int)
+
 # Add empty 'ratings' column
-df['ratings'] = [list() for _ in range(len(df))]
+# df['ratings'] = [list() for _ in range(len(df))]
 
 # Clean up the ingredients for each row
 df['ingredients'] = df['ingredients'].apply(clean_ingredients)
