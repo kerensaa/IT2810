@@ -1,38 +1,41 @@
-import * as React from 'react';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
+interface FilteringProps {
+  filteringOption: string;
+  onFilterChange: (value: string) => void;
+}
 
-export default function Filtering() {
-  const [personName, setPersonName] = React.useState<string[]>([]);
-
+export default function Filtering(props: FilteringProps) {
   const handleChange = (event: SelectChangeEvent<string[]>) => {
-    setPersonName(event.target.value);
+    props.onFilterChange(event.target.value);
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.set('filter', event.target.value);
+    window.history.pushState({}, '', newUrl.toString());
+    window.location.reload();
   };
 
   return (
     <FormControl>
       <InputLabel>Filter</InputLabel>
-      <Select multiple value={personName} onChange={handleChange}>
-        {names.map((name) => (
-          <MenuItem key={name} value={name}>
-            {name}
-          </MenuItem>
-        ))}
+      <Select
+        labelId="demo-multi-select-label"
+        id="demo-multi-select"
+        multiple
+        value={props.filteringOption}
+        onChange={handleChange}
+      >
+        <MenuItem key={'name'} value={'name'}>
+          Lunch
+        </MenuItem>
+        <MenuItem key={'prep_time'} value={'prep_time'}>
+          Dinner
+        </MenuItem>
+        <MenuItem key={'default'} value={'default'}>
+          Breakfast
+        </MenuItem>
       </Select>
     </FormControl>
   );

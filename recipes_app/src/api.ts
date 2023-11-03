@@ -1,5 +1,3 @@
-import { RecipeType } from './types';
-
 // export const fetchAllRecipes = async (): Promise<any> => {
 //   const response = await fetch('http://localhost:5000/recipe');
 //   return await response.json();
@@ -28,4 +26,10 @@ export const fetchRecipes = async (sortOption?: string): Promise<any> => {
   const endpoint = `http://localhost:5000/recipe${sortOption ? `?sort=${sortOption}` : ''}`;
   const response = await fetch(endpoint);
   return await response.json();
-}
+};
+
+export const fetchRecipesFilter = async (filterOption?: string): Promise<any> => {
+  const endpoint = `http://localhost:5000/recipe${filterOption ? `?filter=${filterOption}` : ''}`;
+  const response = await fetch(endpoint);
+  return await response.json();
+};

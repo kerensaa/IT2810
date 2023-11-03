@@ -13,6 +13,8 @@ interface LandingPageTemplateProps {
   dataSource: RecipeType[];
   sortingOption: string;
   onSortChange: (value: string) => void;
+  filteringOption: string;
+  onFilterChange: (value: string) => void;
 }
 
 function LandingPageTemplate(props: LandingPageTemplateProps) {
@@ -48,7 +50,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
             <Sorting sortingOption={props.sortingOption} onSortChange={props.onSortChange} />
           </div>
           <div className="filtering">
-            <Filtering />
+            <Filtering filteringOption={props.filteringOption} onFilterChange={props.onFilterChange} />
           </div>
         </section>
         <section className="right-page">
