@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Autocomplete, TextField } from '@mui/material';
 import { RecipeType } from '../types';
 import Sorting from './Sorting';
+import Filtering from './Filtering';
 
 interface LandingPageTemplateProps {
   dataSource: RecipeType[];
@@ -41,7 +42,12 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
     <>
       <div className="container">
         <section className="left-page">
-          <Sorting></Sorting>
+          <div className="sorting">
+            <Sorting></Sorting>
+          </div>
+          <div className="filtering">
+            <Filtering></Filtering>
+          </div>
         </section>
         <section className="right-page">
           <section className={'search_bar'}>

@@ -10,6 +10,7 @@
   justify-content: space-between;
   gap: 15px;
   padding-top: 5vw;
+  width: 100%;
 }
 
 .recipe-grid {
@@ -65,9 +66,38 @@
 .container {
   display: flex;
   flex-direction: row;
+  gap: 5vh;
 }
 
 .left-page {
   background-color: #f5edf7;
   width: 30%;
+  padding-top: 73px;
+}
+.right-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 1085px) {
+  .container {
+    flex-direction: column;
+    margin-top: 30px;
+    justify-content: flex-end;
+  }
+
+  .left-page {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+  }
+  .sorting {
+    width: 30%;
+    padding-top: 8px;
+  }
+  .filtering {
+    width: 30%;
+  }
 }
