@@ -13,6 +13,7 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { SetStateAction, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchRecipeById } from '../api';
@@ -91,6 +92,10 @@ export default function Recipe() {
             <CardContent className="recipe-card-content">
               <Favorite title={recipe!.name}></Favorite>
               <h2>{recipe?.name}</h2>
+              <div className="prep-time">
+                <AccessTimeIcon></AccessTimeIcon>
+                <text>{recipe?.prep_time} min</text>
+              </div>
               <p>{recipe?.description}</p>
               <h3>Ingredients:</h3>
               <div>{recipe?.ingredients.map((ingredient, index) => <div key={index}>{ingredient}</div>)}</div>

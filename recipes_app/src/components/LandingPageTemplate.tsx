@@ -62,6 +62,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
                 imagePath={recipe.image_url}
                 title={recipe.name}
                 description={recipe.description}
+                preptime={recipe.prep_time}
               />
             </div>
           ))
