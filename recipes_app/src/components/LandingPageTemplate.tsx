@@ -11,6 +11,8 @@ import Filtering from './Filtering';
 
 interface LandingPageTemplateProps {
   dataSource: RecipeType[];
+  sortingOption: string;
+  onSortChange: (value: string) => void;
 }
 
 function LandingPageTemplate(props: LandingPageTemplateProps) {
@@ -43,10 +45,10 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
       <div className="container">
         <section className="left-page">
           <div className="sorting">
-            <Sorting></Sorting>
+            <Sorting sortingOption={props.sortingOption} onSortChange={props.onSortChange} />
           </div>
           <div className="filtering">
-            <Filtering></Filtering>
+            <Filtering />
           </div>
         </section>
         <section className="right-page">
