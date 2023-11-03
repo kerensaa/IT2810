@@ -23,7 +23,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
   }, [props.dataSource]);
 
   // pagination state, variables and functions
-  const elementsPerPage: number = 3;
+  const elementsPerPage: number = 9;
   const { currentPage, elementsDisplayed, handlePageChange } = usePagination(1, elementsPerPage, searchResults);
   console.log('Elements to be displayed:', elementsDisplayed);
 

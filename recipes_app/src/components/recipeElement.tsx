@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import "../styling/HeartButton.css";
-import Favorite from "./Favorites";
-import Ratings from "./Ratings";
+import { Link } from 'react-router-dom';
+import '../styling/HeartButton.css';
+import Favorite from './Favorites';
+import Ratings from './Ratings';
 
 interface RecipeElementProps {
   recipeID: number;
