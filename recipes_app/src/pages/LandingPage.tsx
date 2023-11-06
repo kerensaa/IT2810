@@ -10,7 +10,7 @@ function LandingPage() {
   // Get sorting option from URL
   const urlParams = new URLSearchParams(window.location.search);
   const initialSortOption = urlParams.get('sort') || 'default';
-  const initialFilterOption = urlParams.get('filter') || '';
+  const initialFilterOption = urlParams.get('filter') || 'default';
 
   const [sortingOption, setSortingOption] = useState(initialSortOption);
   const [filterOption, setFilterOption] = useState(initialFilterOption);
@@ -35,7 +35,7 @@ function LandingPage() {
 
   return (
     <LandingPageTemplate
-      dataSource={recipes}
+      dataSource={filterRecipes.length > 0 ? filterRecipes : recipes}
       sortingOption={sortingOption}
       filterOption={filterOption}
       onSortChange={setSortingOption}

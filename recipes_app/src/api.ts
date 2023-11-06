@@ -28,8 +28,26 @@ export const fetchRecipes = async (sortOption?: string): Promise<any> => {
   return await response.json();
 };
 
-export const fetchRecipesFilter = async (filterOption?: string): Promise<any> => {
-  const endpoint = `http://localhost:5000/recipe${filterOption ? `?filter=${filterOption}` : ''}`;
+export const fetchRecipesFilter = async (filterOptions?: string[]): Promise<any> => {
+  // Define the base endpoint for your recipes API
+  let endpoint = 'http://localhost:5000/recipe';
+
+  // Create an array to store query parameters
+  const queryParams = [];
+
+  // Add filter options to the query parameters if they are provided
+  if (filterOptions && filterOptions.length > 0) {
+    filterOptions.forEach((filterOption) => {
+      queryParams.push(`category=${filterOption}`);
+    });
+  }
+
+  // If there are query parameters, join them with '&' and append to the endpoint
+  if (queryParams.length > 0) {
+    endpoint += `?${queryParams.join('&')}`;
+  }
+
+  // Perform the fetch request
   const response = await fetch(endpoint);
   return await response.json();
 };
