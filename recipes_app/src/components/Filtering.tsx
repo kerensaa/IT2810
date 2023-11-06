@@ -24,9 +24,15 @@ function Filter(props: FilterProps) {
   };
 
   return (
-    <FormControl className="filter_select">
+    <FormControl>
       <InputLabel>Course</InputLabel>
-      <Select value={props.courseOption} onChange={handleFilter}>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        label="Course"
+        value={props.courseOption}
+        onChange={handleFilter}
+      >
         <MenuItem value={'default'}>No filter</MenuItem>
         <MenuItem value={'Lunch'}>Lunch</MenuItem>
         <MenuItem value={'Dinner'}>Dinner</MenuItem>

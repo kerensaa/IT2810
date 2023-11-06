@@ -22,7 +22,7 @@ function Sorting(props: SortingProps) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          label="Age"
+          label="Sort"
           value={props.sortingOption}
           onChange={handleSort}
         >
