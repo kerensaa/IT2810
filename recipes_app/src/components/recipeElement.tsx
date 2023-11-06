@@ -36,7 +36,7 @@ export default function RecipeElement(props: RecipeElementProps) {
         </div>
       </div>
       <Link to={`/${recipeID}`}>
-        <p className="recipe-info"> {description}</p>
+        <p className="recipe-info"> {description.slice(0, 100)} ...</p>
       </Link>
     </section>
   );
