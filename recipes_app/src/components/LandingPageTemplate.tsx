@@ -6,9 +6,6 @@ import '../styling/LandingPage.css';
 import '../styling/recipeElement.css';
 import { RecipeType } from '../types';
 import { usePagination } from '../utils/paginationUtils';
-import { useEffect, useState } from 'react';
-import { Autocomplete, TextField } from '@mui/material';
-import { RecipeType } from '../types';
 import Sorting from './Sorting';
 import Filter from './Filtering';
 
