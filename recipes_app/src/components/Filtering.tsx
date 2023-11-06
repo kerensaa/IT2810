@@ -1,36 +1,44 @@
-import * as React from 'react';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
-const meals = ['Breakfast', 'Lunch', 'Dinner'];
-interface FilteringProps {
-  onFilterChange: (value: string) => void;
+interface FilterProps {
+  courseOption: string;
+  onCourseChange: (value: string) => void;
 }
 
-export default function Filtering(props: FilteringProps) {
-  const [personName, setPersonName] = React.useState<string[]>([]);
+function Filter(props: FilterProps) {
+  const handleFilter = (event: SelectChangeEvent) => {
+    props.onCourseChange(event.target.value);
 
-  const handleChange = (event: SelectChangeEvent<string[]>) => {
-    props.onFilterChange(event.target.value);
+    // Update URL with new course filter
     const newUrl = new URL(window.location.href);
-    newUrl.searchParams.set('filter', event.target.value);
+    newUrl.searchParams.set('course', event.target.value);
+
+    // Maintain sorting if present
+    if (newUrl.searchParams.get('sort')) {
+      newUrl.searchParams.set('sort', newUrl.searchParams.get('sort')!);
+    }
+
+    // Update the URL and reload
     window.history.pushState({}, '', newUrl.toString());
     window.location.reload();
-    setPersonName(event.target.value);
   };
 
   return (
     <FormControl className="filter_select">
-      <InputLabel>Filter</InputLabel>
-      <Select multiple value={personName} onChange={handleChange}>
-        {meals.map((meal) => (
-          <MenuItem key={meal} value={meal}>
-            {meal}
-          </MenuItem>
-        ))}
+      <InputLabel>Course</InputLabel>
+      <Select value={props.courseOption} onChange={handleFilter}>
+        <MenuItem value={'default'}>No filter</MenuItem>
+        <MenuItem value={'Lunch'}>Lunch</MenuItem>
+        <MenuItem value={'Dinner'}>Dinner</MenuItem>
+        <MenuItem value={'Side Dish'}>Side Dish</MenuItem>
+        <MenuItem value={'Dessert'}>Dessert</MenuItem>
+        <MenuItem value={'South Indian Breakfast'}>South Indian Breakfast</MenuItem>
+        <MenuItem value={'Snack'}>Snack</MenuItem>
+        <MenuItem value={'Main Course'}>Main Course</MenuItem>
+        <MenuItem value={'North Indian Breakfast'}>North Indian Breakfast</MenuItem>
       </Select>
     </FormControl>
   );
 }
+
+export default Filter;

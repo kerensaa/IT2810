@@ -7,13 +7,13 @@ import { useEffect, useState } from 'react';
 import { Autocomplete, TextField } from '@mui/material';
 import { RecipeType } from '../types';
 import Sorting from './Sorting';
-import Filtering from './Filtering';
+import Filter from './Filtering';
 
 interface LandingPageTemplateProps {
   dataSource: RecipeType[];
   sortingOption: string;
+  filterOption: string;
   onSortChange: (value: string) => void;
-  filteringOption: string;
   onFilterChange: (value: string) => void;
 }
 
@@ -44,43 +44,47 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
 
   return (
     <>
-      <section className="sort_and_filter">
-        <Sorting sortingOption={props.sortingOption} onSortChange={props.onSortChange} />
-        <Filtering filteringOption={props.filteringOption} onFilterChange={props.onFilterChange} />
-      </section>
-      <section className={'search_bar'}>
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={props.dataSource.map((option) => option.name)}
-          onChange={(_, newValue) => SearchFunction(newValue)}
-          renderInput={(params) => <TextField {...params} label="Search" />}
-          freeSolo
-          fullWidth
-        />
-      </section>
-      <section className="recipe-grid">
-        <>
-          {searchResults.length === 0 ? (
+      <div className="container">
+        <section className="left-page">
+          <Sorting sortingOption={props.sortingOption} onSortChange={props.onSortChange} />
+          <Filter courseOption={props.filterOption} onCourseChange={props.onFilterChange} />
+        </section>
+        <section className="right-page">
+          <section className={'search_bar'}>
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              options={props.dataSource.map((option) => option.name)}
+              onChange={(_, newValue) => SearchFunction(newValue)}
+              renderInput={(params) => <TextField {...params} label="Search" />}
+              freeSolo
+              fullWidth
+            />
+          </section>
+          <section className="recipe-grid">
             <>
-              <h1>Loading...</h1>
+              {searchResults.length === 0 ? (
+                <>
+                  <h1>Loading...</h1>
+                </>
+              ) : (
+                <>
+                  {elementsDisplayed.map((recipe) => (
+                    <div className="recipe-element" key={recipe.id}>
+                      <RecipeElement
+                        recipeID={recipe.id}
+                        imagePath={recipe.image_url}
+                        title={recipe.name}
+                        description={recipe.description}
+                      />
+                    </div>
+                  ))}
+                </>
+              )}
             </>
-          ) : (
-            <>
-              {elementsDisplayed.map((recipe) => (
-                <div className="recipe-element" key={recipe.id}>
-                  <RecipeElement
-                    recipeID={recipe.id}
-                    imagePath={recipe.image_url}
-                    title={recipe.name}
-                    description={recipe.description}
-                  />
-                </div>
-              ))}
-            </>
-          )}
-        </>
-      </section>
+          </section>
+        </section>
+      </div>
       <div className="pagination-container">
         {searchResults.length === 0 ? (
           <></>

@@ -9,39 +9,29 @@ function LandingPage() {
 
   // Get sorting option from URL
   const urlParams = new URLSearchParams(window.location.search);
-  const initialSortOption = urlParams.get('sort') || 'default';
-  const initialFilterOption = urlParams.get('filter') || 'default';
+  const initialSortOption = urlParams.get('sort') || 'default'; 
+  const initialFilterOption = urlParams.get('course') || 'default'; 
 
   const [sortingOption, setSortingOption] = useState(initialSortOption);
   const [filterOption, setFilterOption] = useState(initialFilterOption);
 
   useEffect(() => {
     const fetchData = async () => {
-      const recipes = await fetchRecipes(sortingOption); // For all recipes
-      setRecipes(recipes);
+      const recipes = await fetchRecipes(sortingOption, filterOption); // For all recipes
+        setRecipes(recipes);
     };
 
     fetchData();
-  }, [sortingOption]);
+}, [sortingOption, filterOption]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const filterRecipes = await fetchRecipesFilter([filterOption]);
-      setFilterRecipes(filterRecipes);
-    };
+  return <LandingPageTemplate 
+    dataSource={recipes} 
+    sortingOption={sortingOption} 
+    onSortChange={setSortingOption} 
+    filterOption={filterOption}
+    onFilterChange={setFilterOption}
+    />;
 
-    fetchData();
-  }, [filterOption]);
-
-  return (
-    <LandingPageTemplate
-      dataSource={filterRecipes.length > 0 ? filterRecipes : recipes}
-      sortingOption={sortingOption}
-      filteringOption={filterOption}
-      onSortChange={setSortingOption}
-      onFilterChange={setFilterOption}
-    />
-  );
 }
 
 export default LandingPage;
