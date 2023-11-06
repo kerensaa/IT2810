@@ -1,15 +1,13 @@
 #root {
   max-width: 1380px;
-  padding-top: 2rem;
+  margin: 0 auto;
+  padding: 2rem;
   text-align: center;
   margin-top: 50px;
 }
 
 .search_bar {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  padding-top: 5vw;
+  padding-top: 10px;
 }
 
 .recipe-grid {
@@ -62,12 +60,18 @@
   justify-content: center;
 }
 
-.container {
+.sort_and_filter {
   display: flex;
-  flex-direction: row;
+  align-items: center;
 }
 
-.left-page {
-  background-color: #f5edf7;
-  width: 30%;
+@media screen and (max-height: 1040px) {
+  .sort_and_filter {
+    padding-top: 5vw;
+  }
+}
+@media screen and (max-width: 1100px) {
+  .sort_and_filter {
+    padding-top: 12vw;
+  }
 }

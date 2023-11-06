@@ -63,28 +63,24 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
           </section>
           <section className="recipe-grid">
             <>
-              {searchResults.length === 0 ? (
-                <>
-                  <h1>Loading...</h1>
-                </>
-              ) : (
-                <>
-                  {elementsDisplayed.map((recipe) => (
-                    <div className="recipe-element" key={recipe.id}>
-                      <RecipeElement
-                        recipeID={recipe.id}
-                        imagePath={recipe.image_url}
-                        title={recipe.name}
-                        description={recipe.description}
-                      />
-                    </div>
-                  ))}
-                </>
-              )}
+              <h1>Loading...</h1>
             </>
-          </section>
-        </section>
-      </div>
+          ) : (
+            <>
+              {elementsDisplayed.map((recipe) => (
+                <div className="recipe-element" key={recipe.id}>
+                  <RecipeElement
+                    recipeID={recipe.id}
+                    imagePath={recipe.image_url}
+                    title={recipe.name}
+                    description={recipe.description}
+                  />
+                </div>
+              ))}
+            </>
+          )}
+        </>
+      </section>
       <div className="pagination-container">
         {searchResults.length === 0 ? (
           <></>

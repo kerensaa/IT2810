@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import LandingPageTemplate from '../components/LandingPageTemplate';
-import { fetchRecipes } from '../api';
+import { fetchRecipes, fetchRecipesFilter } from '../api';
 import { RecipeType } from '../types';
 
 function LandingPage() {
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
+  const [filterRecipes, setFilterRecipes] = useState<RecipeType[]>([]);
 
   // Get sorting option from URL
   const urlParams = new URLSearchParams(window.location.search);
