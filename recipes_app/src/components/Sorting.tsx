@@ -7,36 +7,37 @@ interface SortingProps {
 }
 
 function Sorting(props: SortingProps) {
-  
   const handleSort = (event: SelectChangeEvent) => {
     props.onSortChange(event.target.value);
     const newUrl = new URL(window.location.href);
     newUrl.searchParams.set('sort', event.target.value);
     window.history.pushState({}, '', newUrl.toString());
     window.location.reload();
-};
+  };
 
   return (
-    <FormControl className="sort_select">
-      <InputLabel>Sort</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        label="Age"
-        value={props.sortingOption}
-        onChange={handleSort}
-      >
-        <MenuItem key={'name'} value={'name'}>
-          Name
-        </MenuItem>
-        <MenuItem key={'prep_time'} value={'prep_time'}>
-          Prep Time
-        </MenuItem>
-        <MenuItem key={'default'} value={'default'}>
-          No Sorting
-        </MenuItem>
-      </Select>
-    </FormControl>
+    <div className="sort_select">
+      <FormControl>
+        <InputLabel>Sort</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          label="Age"
+          value={props.sortingOption}
+          onChange={handleSort}
+        >
+          <MenuItem key={'name'} value={'name'}>
+            Name
+          </MenuItem>
+          <MenuItem key={'prep_time'} value={'prep_time'}>
+            Prep Time
+          </MenuItem>
+          <MenuItem key={'default'} value={'default'}>
+            No Sorting
+          </MenuItem>
+        </Select>
+      </FormControl>
+    </div>
   );
 }
 

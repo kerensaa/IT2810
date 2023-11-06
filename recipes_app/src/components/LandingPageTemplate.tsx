@@ -44,51 +44,43 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
 
   return (
     <>
-      <div className="container">
-        <section className="left-page">
-          <div className="sorting">
-            <Sorting sortingOption={props.sortingOption} onSortChange={props.onSortChange} />
-          </div>
-          <div className="filtering">
-            <Filtering filteringOption={props.filteringOption} onFilterChange={props.onFilterChange} />
-          </div>
-        </section>
-        <section className="right-page">
-          <section className={'search_bar'}>
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
-              options={props.dataSource.map((option) => option.name)}
-              onChange={(_, newValue) => SearchFunction(newValue)}
-              renderInput={(params) => <TextField {...params} label="Search" />}
-              freeSolo
-              fullWidth
-            />
-          </section>
-          <section className="recipe-grid">
+      <section className="sort_and_filter">
+        <Sorting sortingOption={props.sortingOption} onSortChange={props.onSortChange} />
+        <Filtering filteringOption={props.filteringOption} onFilterChange={props.onFilterChange} />
+      </section>
+      <section className={'search_bar'}>
+        <Autocomplete
+          disablePortal
+          id="combo-box-demo"
+          options={props.dataSource.map((option) => option.name)}
+          onChange={(_, newValue) => SearchFunction(newValue)}
+          renderInput={(params) => <TextField {...params} label="Search" />}
+          freeSolo
+          fullWidth
+        />
+      </section>
+      <section className="recipe-grid">
+        <>
+          {searchResults.length === 0 ? (
             <>
-              {searchResults.length === 0 ? (
-                <>
-                  <h1>Loading...</h1>
-                </>
-              ) : (
-                <>
-                  {elementsDisplayed.map((recipe) => (
-                    <div className="recipe-element" key={recipe.id}>
-                      <RecipeElement
-                        recipeID={recipe.id}
-                        imagePath={recipe.image_url}
-                        title={recipe.name}
-                        description={recipe.description}
-                      />
-                    </div>
-                  ))}
-                </>
-              )}
+              <h1>Loading...</h1>
             </>
-          </section>
-        </section>
-      </div>
+          ) : (
+            <>
+              {elementsDisplayed.map((recipe) => (
+                <div className="recipe-element" key={recipe.id}>
+                  <RecipeElement
+                    recipeID={recipe.id}
+                    imagePath={recipe.image_url}
+                    title={recipe.name}
+                    description={recipe.description}
+                  />
+                </div>
+              ))}
+            </>
+          )}
+        </>
+      </section>
       <div className="pagination-container">
         {searchResults.length === 0 ? (
           <></>
