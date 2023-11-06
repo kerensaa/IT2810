@@ -7,8 +7,13 @@ const ObjectId = require("mongodb").ObjectId;
 
 
 recipeRoutes.get("/recipe", (req, res) => {
-  
   const db_connect = dbo.getDb("recipe_db");
+
+  let filterQuery = {};
+  if (req.query.course) {
+    filterQuery.course = req.query.course;
+  }
+
   let sortQuery = {};
   switch(req.query.sort) {
     case 'prep_time':
@@ -21,7 +26,7 @@ recipeRoutes.get("/recipe", (req, res) => {
       break;
   }
   db_connect.collection("indian_recipes")
-  .find({}).sort(sortQuery).toArray()
+  .find(filterQuery).sort(sortQuery).toArray()
   .then(result => {
       res.json(result);
   })

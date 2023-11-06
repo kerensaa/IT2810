@@ -7,11 +7,14 @@ import { useEffect, useState } from 'react';
 import { Autocomplete, TextField } from '@mui/material';
 import { RecipeType } from '../types';
 import Sorting from './Sorting';
+import Filter from './Filtering';
 
 interface LandingPageTemplateProps {
   dataSource: RecipeType[];
   sortingOption: string;
+  filterOption: string;
   onSortChange: (value: string) => void;
+  onFilterChange: (value: string) => void;
 }
 
 function LandingPageTemplate(props: LandingPageTemplateProps) {
@@ -44,6 +47,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
       <div className="container">
         <section className="left-page">
           <Sorting sortingOption={props.sortingOption} onSortChange={props.onSortChange} />
+          <Filter courseOption={props.filterOption} onCourseChange={props.onFilterChange} />
         </section>
         <section className="right-page">
           <section className={'search_bar'}>
