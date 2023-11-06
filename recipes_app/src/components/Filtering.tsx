@@ -8,11 +8,11 @@ interface FilterProps {
 function Filter(props: FilterProps) {
   const handleFilter = (event: SelectChangeEvent) => {
     props.onCourseChange(event.target.value);
-    
+
     // Update URL with new course filter
     const newUrl = new URL(window.location.href);
     newUrl.searchParams.set('course', event.target.value);
-    
+
     // Maintain sorting if present
     if (newUrl.searchParams.get('sort')) {
       newUrl.searchParams.set('sort', newUrl.searchParams.get('sort')!);
@@ -26,18 +26,19 @@ function Filter(props: FilterProps) {
   return (
     <FormControl className="filter_select">
       <InputLabel>Course</InputLabel>
-      <Select
-        value={props.courseOption}
-        onChange={handleFilter}
-      >
+      <Select value={props.courseOption} onChange={handleFilter}>
+        <MenuItem value={'default'}>No filter</MenuItem>
         <MenuItem value={'Lunch'}>Lunch</MenuItem>
         <MenuItem value={'Dinner'}>Dinner</MenuItem>
         <MenuItem value={'Side Dish'}>Side Dish</MenuItem>
         <MenuItem value={'Dessert'}>Dessert</MenuItem>
+        <MenuItem value={'South Indian Breakfast'}>South Indian Breakfast</MenuItem>
+        <MenuItem value={'Snack'}>Snack</MenuItem>
+        <MenuItem value={'Main Course'}>Main Course</MenuItem>
+        <MenuItem value={'North Indian Breakfast'}>North Indian Breakfast</MenuItem>
       </Select>
     </FormControl>
   );
 }
 
 export default Filter;
-
