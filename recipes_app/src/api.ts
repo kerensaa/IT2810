@@ -33,7 +33,7 @@ export const fetchRecipesFilter = async (filterOptions?: string[]): Promise<any>
   let endpoint = 'http://localhost:5000/recipe';
 
   // Create an array to store query parameters
-  const queryParams = [];
+  const queryParams: string[] = [];
 
   // Add filter options to the query parameters if they are provided
   if (filterOptions && filterOptions.length > 0) {

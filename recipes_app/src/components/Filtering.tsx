@@ -15,7 +15,7 @@ export default function Filtering(props: FilteringProps) {
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     props.onFilterChange(event.target.value);
     const newUrl = new URL(window.location.href);
-    newUrl.searchParams.set('sort', event.target.value);
+    newUrl.searchParams.set('filter', event.target.value);
     window.history.pushState({}, '', newUrl.toString());
     window.location.reload();
     setPersonName(event.target.value);

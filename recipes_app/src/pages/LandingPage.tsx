@@ -26,7 +26,7 @@ function LandingPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const filterRecipes = await fetchRecipesFilter(filterOption);
+      const filterRecipes = await fetchRecipesFilter([filterOption]);
       setFilterRecipes(filterRecipes);
     };
 
@@ -37,7 +37,7 @@ function LandingPage() {
     <LandingPageTemplate
       dataSource={filterRecipes.length > 0 ? filterRecipes : recipes}
       sortingOption={sortingOption}
-      filterOption={filterOption}
+      filteringOption={filterOption}
       onSortChange={setSortingOption}
       onFilterChange={setFilterOption}
     />
