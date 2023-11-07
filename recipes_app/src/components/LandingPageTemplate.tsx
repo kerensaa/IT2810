@@ -27,7 +27,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
   }, [props.dataSource]);
 
   // pagination state, variables, and functions
-  const elementsPerPage: number = 3;
+  const elementsPerPage: number = 9;
   const { currentPage, elementsDisplayed, handlePageChange } = usePagination(1, elementsPerPage, searchResults);
 
   function SearchFunction(values: string | null) {
@@ -73,6 +73,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
                 imagePath={recipe.image_url}
                 title={recipe.name}
                 description={recipe.description}
+                preptime={recipe.prep_time}
               />
             </div>
           ))
