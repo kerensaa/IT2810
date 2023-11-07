@@ -78,6 +78,11 @@
   gap: 0.3vh;
 }
 
+.course-type {
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+}
+
 .recipe-img {
   margin-top: 10%;
   border-radius: 12px 12px 12px 12px;
