@@ -13,10 +13,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <Router>
       <Navbar></Navbar>
       <Routes>
-        <Route path="/project2/" element={<LandingPage />} />
-        <Route path="/project2/:recipeId" element={<Recipe />} />
-        <Route path="/project2/MyFavorites" element={<MyFavorites />} />
-        <Route path="/project2/MyRatings" element={<MyRatings />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/:recipeId" element={<Recipe />} />
+        <Route path="/MyFavorites" element={<MyFavorites />} />
+        <Route path="/MyRatings" element={<MyRatings />} />
       </Routes>
     </Router>
   </React.StrictMode>,
