@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import "../styling/Navbar.css";
+import '../styling/Navbar.css';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
@@ -11,12 +11,12 @@ function Navbar() {
           </h2>
         </div>
         <div className="right-content">
-          <text>
-            <Link to="/">My Ratings</Link>
-          </text>
-          <text>
-            <Link to="/">My Favorites</Link>
-          </text>
+          <p>
+            <Link to="/MyRatings">My Ratings</Link>
+          </p>
+          <p>
+            <Link to="/MyFavorites">My Favorites</Link>
+          </p>
         </div>
       </nav>
     </div>

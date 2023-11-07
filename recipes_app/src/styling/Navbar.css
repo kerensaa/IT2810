@@ -1,3 +1,4 @@
+/* Existing styles */
 .nav {
   width: 100%;
   background-color: #bb99cd;
@@ -18,7 +19,8 @@
     width: 100%;
     background-color: #bb99cd;
     display: grid;
-    position: absolute;
+    /* Remove the following line to keep the nav fixed on smaller screens */
+    /* position: fixed; */
     top: 0;
     left: 0;
     right: 0;

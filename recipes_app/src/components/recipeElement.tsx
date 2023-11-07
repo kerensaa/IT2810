@@ -1,31 +1,43 @@
-import { Rate } from "antd";
-import "../styling/HeartButton.css";
-import Heart from "./Heart";
+import { Link } from 'react-router-dom';
+import '../styling/HeartButton.css';
+import Favorite from './Favorites';
+import Ratings from './Ratings';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 interface RecipeElementProps {
+  recipeID: number;
   imagePath: string;
   title: string;
   description: string;
+  preptime: string;
 }
 
 export default function RecipeElement(props: RecipeElementProps) {
-  const { imagePath, title, description } = props;
+  const { recipeID, imagePath, title, description, preptime } = props;
 
   return (
     <section>
-      <img className="recipe-image" src={imagePath} alt={title} />
+      <Link to={`/${recipeID}`}>
+        <img className="recipe-image" src={imagePath} alt={title} />
+      </Link>
       <div className="recipe-title">
-        <h3>{title}</h3>
+        <Link to={`/${recipeID}`}>
+          <h3>{title}</h3>
+        </Link>
         <div className="rate-and-favorite">
-          <Rate defaultValue={0}></Rate>
+          <Ratings title={title}></Ratings>
           <div className="button-placement">
-            <button className="h-container">
-              <Heart></Heart>
-            </button>
+            <Favorite title={title}></Favorite>
+          </div>
+          <div className="prep-time">
+            <AccessTimeIcon></AccessTimeIcon>
+            <text>{preptime} min</text>
           </div>
         </div>
       </div>
-      <p className="recipe-info"> {description}</p>
+      <Link to={`/${recipeID}`}>
+        <p className="recipe-info"> {description.slice(0, 100)} ...</p>
+      </Link>
     </section>
   );
 }

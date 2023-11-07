@@ -1,35 +1,37 @@
-import { Link } from "react-router-dom";
-import RecipeElement from "../components/recipeElement";
-import { mockUsers } from "../mockData/mockData";
-import "../styling/LandingPage.css";
-import "../styling/recipeElement.css";
-import { Input } from "antd";
-import Pagination from "@mui/material/Pagination";
+import { useEffect, useState } from 'react';
+import LandingPageTemplate from '../components/LandingPageTemplate';
+import { fetchRecipes } from '../api';
+import { RecipeType } from '../types';
 
 function LandingPage() {
-  const { Search } = Input;
+  const [recipes, setRecipes] = useState<RecipeType[]>([]);
+
+  // Get sorting option from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialSortOption = urlParams.get('sort') || 'default';
+  const initialFilterOption = urlParams.get('course') || 'default';
+
+  const [sortingOption, setSortingOption] = useState(initialSortOption);
+  const [filterOption, setFilterOption] = useState(initialFilterOption);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const recipes = await fetchRecipes(sortingOption, filterOption); // For all recipes
+      setRecipes(recipes);
+    };
+
+    fetchData();
+  }, [sortingOption, filterOption]);
 
   return (
-    <>
-      <h1></h1>
-      <Search placeholder="Search" style={{ paddingTop: 40, maxWidth: 600 }} />
-      <section className="recipe-grid">
-        {mockUsers.map((recipe) => (
-          <div className="recipe-element" key={recipe.id}>
-            <Link to={`/${recipe.id}`}>
-              <RecipeElement
-                imagePath={recipe.icon_path}
-                title={recipe.title}
-                description={recipe.description}
-              />
-            </Link>
-          </div>
-        ))}
-      </section>
-      <div className="pagination-container">
-        <Pagination count={20} color="secondary" shape="rounded" />
-      </div>
-    </>
+    <LandingPageTemplate
+      dataSource={recipes}
+      sortingOption={sortingOption}
+      onSortChange={setSortingOption}
+      filterOption={filterOption}
+      onFilterChange={setFilterOption}
+      showSection={true}
+    />
   );
 }
 
