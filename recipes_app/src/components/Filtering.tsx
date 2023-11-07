@@ -30,7 +30,7 @@ function Filter(props: FilterProps) {
         labelId="demo-simple-select-label"
         id="demo-simple-select"
         label="Course"
-        value={props.courseOption}
+        value={props.courseOption ?? 'default'}
         onChange={handleFilter}
       >
         <MenuItem value={'default'}>No filter</MenuItem>
