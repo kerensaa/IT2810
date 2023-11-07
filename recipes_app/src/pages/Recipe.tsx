@@ -20,7 +20,6 @@ import Favorite from "../components/Favorites";
 import Ratings from "../components/Ratings";
 import { fetchRecipeById, postReviewToRecipe } from "../api";
 import { RecipeType } from "../types";
-import CommentsDB from '../components/CommentsDB';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 export default function Recipe() {
@@ -60,9 +59,6 @@ export default function Recipe() {
   });
 
   const [comment, setComment] = useState("");
-  const { comments, addComment, deleteComment } = CommentsDB();
-
-  const filteredComments = comments.filter((c) => c.recipeId === recipeIdNum);
 
   const handleCommentChange = (event: { target: { value: SetStateAction<string> } }) => {
     setComment(event.target.value);
@@ -70,24 +66,22 @@ export default function Recipe() {
 
 
   const postComment = async () => {
-    console.log("Posting comment:", comment);
-  
     // Construct the review object.
     const review = {
       name: name,
       details: {
         reviewText: comment,
-        rating: rating
-      }
+        rating: rating,
+      },
     };
   
     try {
       // Send the review to the backend.
-      const response = await postReviewToRecipe(recipeIdNum, review);
-      console.log("Review posted:", response);
+      await postReviewToRecipe(recipeIdNum, review);
   
-      // Add comment to local state
-      addComment(recipeIdNum, comment);
+      // Fetch the updated recipe data to refresh comments
+      const updatedRecipe = await fetchRecipeById(recipeIdNum);
+      setRecipe(updatedRecipe); // This will include the updated comments
   
       // Clear the input fields.
       setComment("");
@@ -97,6 +91,7 @@ export default function Recipe() {
       console.error("Error posting the review:", error);
     }
   };
+  
   
 
   
@@ -110,13 +105,13 @@ export default function Recipe() {
     setRating(Number(e.target.value));  // Convert string to number.
   };
   
-  const handleDeleteComment = (commentId: number) => {
-    if (commentId) {
-      deleteComment(commentId);
-    } else {
-      console.error('Invalid commentId:', commentId);
-    }
-  };
+  // const handleDeleteComment = (commentId: number) => {
+  //   if (commentId) {
+  //     deleteComment(commentId);
+  //   } else {
+  //     console.error('Invalid commentId:', commentId);
+  //   }
+  // };
 
   if (!recipe) {
     return <div>Loading...</div>;
@@ -214,8 +209,8 @@ export default function Recipe() {
               <Typography>See comments</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              {filteredComments.map((comment) => (
-                <div key={comment.id} style={{ position: 'relative' }}>
+              {recipe?.reviews?.map((review, index) => (
+                <div key={index} style={{ position: 'relative' }}>
                   <Paper
                     sx={{
                       m: 2,
@@ -224,21 +219,14 @@ export default function Recipe() {
                       overflow: 'visible',
                     }}
                   >
-                    <div style={{ display: 'flex', position: 'relative' }}>
-                      <IconButton
-                        size="small"
-                        color="secondary"
-                        style={{ position: 'absolute', top: '0', right: '0' }}
-                        onClick={() => handleDeleteComment(comment.id)}
-                      >
-                        <DeleteIcon fontSize="small" />
-                      </IconButton>
-                    </div>
-                    <div style={{ wordWrap: 'break-word', padding: '30px 0 0 0' }}>{comment.text}</div>
+                    <Typography>{review.name}</Typography>
+                    <Typography>{review.details.reviewText}</Typography>
+                    <Typography>Rating: {review.details.rating}</Typography>
                   </Paper>
                 </div>
               ))}
             </AccordionDetails>
+
           </Accordion>
         </Container>
       </Container>
