@@ -89,8 +89,8 @@ export default function Recipe() {
           <img className="recipe-img" src={recipe?.image_url} alt={recipe?.image_url} />
         </div>
         <div className="card-container">
-          <Card className="recipe-card" style={{ backgroundColor: '#F5EDF7' }}>
-            <CardContent className="recipe-card-content">
+          <Card className="recipe-card" style={{ backgroundColor: '#F5EDF7', width: '100%' }}>
+            <CardContent className="recipe-card-content" style={{ width: '95%' }}>
               <Favorite title={recipe!.name}></Favorite>
               <h2>{recipe?.name}</h2>
               <div className="prep-time">
