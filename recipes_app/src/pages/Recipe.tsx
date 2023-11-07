@@ -87,7 +87,7 @@ export default function Recipe() {
             Back
           </button>
 
-          <img className="recipe-image" src={recipe?.image_url} alt={recipe?.image_url} />
+          <img className="recipe-img" src={recipe?.image_url} alt={recipe?.image_url} />
         </div>
         <div className="card-container">
           <Card className="recipe-card" style={{ backgroundColor: '#F5EDF7' }}>
