@@ -96,6 +96,7 @@ export default function Recipe() {
                 <AccessTimeIcon></AccessTimeIcon>
                 <text>{recipe?.prep_time} min</text>
               </div>
+              <div className="course-type">Course Type: {recipe?.course}</div>
               <p>{recipe?.description}</p>
               <h3>Ingredients:</h3>
               <div>{recipe?.ingredients.map((ingredient, index) => <div key={index}>{ingredient}</div>)}</div>
