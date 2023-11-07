@@ -1,3 +1,4 @@
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
@@ -13,7 +14,6 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { SetStateAction, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchRecipeById } from '../api';
@@ -82,13 +82,15 @@ export default function Recipe() {
   return (
     <>
       <Container>
-        <button className="back-button" onClick={handleGoBack}>
-          Back
-        </button>
+        <div className="button-container">
+          <button className="back-button" onClick={handleGoBack}>
+            Back
+          </button>
 
-        <img className="recipe-img" src={recipe?.image_url} alt={recipe?.image_url} />
+          <img className="recipe-img" src={recipe?.image_url} alt={recipe?.image_url} />
+        </div>
         <div className="card-container">
-          <Card style={{ backgroundColor: '#F5EDF7' }}>
+          <Card className="recipe-card" style={{ backgroundColor: '#F5EDF7' }}>
             <CardContent className="recipe-card-content">
               <Favorite title={recipe!.name}></Favorite>
               <h2>{recipe?.name}</h2>
@@ -102,11 +104,12 @@ export default function Recipe() {
             </CardContent>
           </Card>
           <div className="rating-card">
-            <Card style={{ backgroundColor: '#F5EDF7', marginTop: '20px' }}>
+            <Card className="rating-card-section" style={{ backgroundColor: '#F5EDF7', marginTop: '20px' }}>
               <CardContent>
                 <Typography variant="h6">What did you think about this recipe?</Typography>
                 <Box mt={2}>
                   <div
+                    className="rating-box-style"
                     style={{
                       display: 'flex',
                       alignItems: 'center',
@@ -116,8 +119,9 @@ export default function Recipe() {
                     <Ratings title={recipe.name}></Ratings>
                   </div>
                 </Box>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div className="rating-text-holder" style={{ display: 'flex', alignItems: 'center' }}>
                   <textarea
+                    className="rating-text-holder"
                     placeholder="Add comment..."
                     rows={4}
                     value={comment}
@@ -129,6 +133,7 @@ export default function Recipe() {
                     }}
                   />
                   <Button
+                    className="post-button"
                     variant="contained"
                     style={{
                       backgroundColor: '#C5C6EF',
@@ -142,15 +147,16 @@ export default function Recipe() {
               </CardContent>
             </Card>
           </div>
-          <Container style={{ display: 'flex', justifyContent: 'center' }}>
+          <Container className="comment-container" style={{ display: 'flex', justifyContent: 'center' }}>
             <Accordion className="comment-section" style={{ backgroundColor: '#BB99CD', width: '60%' }}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
                 <Typography>See comments</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 {filteredComments.map((comment) => (
-                  <div key={comment.id} style={{ position: 'relative' }}>
+                  <div className="comment-paper-div" key={comment.id} style={{ position: 'relative' }}>
                     <Paper
+                      className="comment-paper"
                       sx={{
                         m: 2,
                         whiteSpace: 'pre-line',
@@ -158,8 +164,9 @@ export default function Recipe() {
                         overflow: 'visible',
                       }}
                     >
-                      <div style={{ display: 'flex', position: 'relative' }}>
+                      <div className="comment-delete-div" style={{ display: 'flex', position: 'relative' }}>
                         <IconButton
+                          className="comment-delete"
                           size="small"
                           color="secondary"
                           style={{ position: 'absolute', top: '0', right: '0' }}
@@ -168,7 +175,9 @@ export default function Recipe() {
                           <DeleteIcon fontSize="small" />
                         </IconButton>
                       </div>
-                      <div style={{ wordWrap: 'break-word', padding: '30px 0 0 0' }}>{comment.text}</div>
+                      <div className="comment-text-div" style={{ wordWrap: 'break-word', padding: '30px 0 0 0' }}>
+                        {comment.text}
+                      </div>
                     </Paper>
                   </div>
                 ))}

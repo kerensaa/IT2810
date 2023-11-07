@@ -1,3 +1,11 @@
+#root {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 50px;
+}
+
 /* For phone-sized screens */
 @media (max-width: 798px) {
   .recipe-grid {
@@ -105,15 +113,20 @@
   letter-spacing: 0.25px;
 }
 
-.back-button {
+.button-container button {
   border: #bb99cd;
   background-color: #bb99cd;
   outline-color: #bb99cd;
-  position: absolute;
-  top: 130px;
-  left: 80px;
+  align-self: flex-start;
+  margin-top: 60px;
+  margin-left: -30px;
+}
+.button-container {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
+
 .card-container {
   justify-content: space-between;
 
