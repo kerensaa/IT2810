@@ -6,24 +6,29 @@ import '../styling/LandingPage.css';
 import '../styling/recipeElement.css';
 import { RecipeType } from '../types';
 import { usePagination } from '../utils/paginationUtils';
+import Sorting from './Sorting';
+import Filter from './Filtering';
 
 interface LandingPageTemplateProps {
   dataSource: RecipeType[];
+  sortingOption: string;
+  filterOption: string;
+  onSortChange?: (value: string) => void;
+  onFilterChange?: (value: string) => void;
+  showSection: boolean;
 }
 
-function LandingPageTemplate(props: LandingPageTemplateProps) {
+function LandingPageTemplate(props: Readonly<LandingPageTemplateProps>) {
   const [searchResults, setSearchResults] = useState(props.dataSource);
   const [noResults, setNoResults] = useState(false);
 
   useEffect(() => {
-    console.log('Setting search results with:', props.dataSource);
     setSearchResults(props.dataSource);
   }, [props.dataSource]);
 
   // pagination state, variables, and functions
   const elementsPerPage: number = 9;
   const { currentPage, elementsDisplayed, handlePageChange } = usePagination(1, elementsPerPage, searchResults);
-  console.log('Elements to be displayed:', elementsDisplayed);
 
   function SearchFunction(values: string | null) {
     if (typeof values === 'string' && values !== null) {
@@ -40,8 +45,13 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
 
   return (
     <>
+      {props.showSection && (
+        <section className="sort_and_filter">
+          <Sorting sortingOption={props.sortingOption} onSortChange={props.onSortChange ?? (() => {})} />
+          <Filter courseOption={props.filterOption} onCourseChange={props.onFilterChange ?? (() => {})} />
+        </section>
+      )}
       <section className={'search_bar'}>
-        <h1></h1>
         <Autocomplete
           disablePortal
           id="combo-box-demo"
@@ -49,6 +59,7 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
           onChange={(_, newValue) => SearchFunction(newValue)}
           renderInput={(params) => <TextField {...params} label="Search" />}
           freeSolo
+          fullWidth
         />
       </section>
       <section className="recipe-grid">
