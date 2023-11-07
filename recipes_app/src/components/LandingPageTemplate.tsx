@@ -13,8 +13,9 @@ interface LandingPageTemplateProps {
   dataSource: RecipeType[];
   sortingOption: string;
   filterOption: string;
-  onSortChange: (value: string) => void;
-  onFilterChange: (value: string) => void;
+  onSortChange?: (value: string) => void;
+  onFilterChange?: (value: string) => void;
+  showSection: boolean;
 }
 
 function LandingPageTemplate(props: LandingPageTemplateProps) {
@@ -44,10 +45,12 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
 
   return (
     <>
-      <section className="sort_and_filter">
-        <Sorting sortingOption={props.sortingOption} onSortChange={props.onSortChange} />
-        <Filter courseOption={props.filterOption} onCourseChange={props.onFilterChange} />
-      </section>
+      {props.showSection && (
+        <section className="sort_and_filter">
+          <Sorting sortingOption={props.sortingOption} onSortChange={props.onSortChange ?? (() => {})} />
+          <Filter courseOption={props.filterOption} onCourseChange={props.onFilterChange ?? (() => {})} />
+        </section>
+      )}
       <section className={'search_bar'}>
         <Autocomplete
           disablePortal

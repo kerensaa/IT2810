@@ -10,12 +10,11 @@ interface Ratings {
 
 export default function MyRatings() {
   const { ratings } = useIndexedDBRatings();
-  const [recipes, setRecipes] = useState<RecipeType[]>([]); 
+  const [recipes, setRecipes] = useState<RecipeType[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchRecipes();
       setRecipes(data);
-      console.log("Recipes state:", recipes);
     };
 
     fetchData();
@@ -25,9 +24,7 @@ export default function MyRatings() {
   return (
     <>
       <h1>My ratings</h1>
-      <LandingPageTemplate dataSource={ratedRecipes} sortingOption={''} onSortChange={function (value: string): void {
-        throw new Error('Function not implemented.');
-      } } />
+      <LandingPageTemplate dataSource={ratedRecipes} sortingOption={''} showSection={false} filterOption={''} />
     </>
   );
 }

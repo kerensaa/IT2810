@@ -30,6 +30,7 @@ function LandingPage() {
       onSortChange={setSortingOption}
       filterOption={filterOption}
       onFilterChange={setFilterOption}
+      showSection={true}
     />
   );
 }
