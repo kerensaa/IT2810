@@ -1,24 +1,26 @@
-.nav{
-    width:100%;
-    background-color: #BB99CD;
-    display: grid;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 7rem;
-    align-items: center;
-    grid-template-columns: 1fr 2fr;
-    flex-wrap: wrap;
-    z-index: 1000;
+/* Existing styles */
+.nav {
+  width: 100%;
+  background-color: #bb99cd;
+  display: grid;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 7rem;
+  align-items: center;
+  grid-template-columns: 1fr 2fr;
+  flex-wrap: wrap;
+  z-index: 1000;
 }
 
-@media screen and (max-width: 1085px){
+@media screen and (max-width: 1085px) {
   .nav {
-    width:100%;
-    background-color: #BB99CD;
+    width: 100%;
+    background-color: #bb99cd;
     display: grid;
-    position:absolute;
+    /* Remove the following line to keep the nav fixed on smaller screens */
+    /* position: fixed; */
     top: 0;
     left: 0;
     right: 0;
@@ -29,30 +31,28 @@
     z-index: 1000;
   }
 }
-
 
 .left-content {
-    display: flex;
-    align-items: center;
-    padding-left: 4rem;
-    padding-right: 1rem;
-    
-    /* Typography */
-    font-family: Oldenburg;
-  }
+  display: flex;
+  align-items: center;
+  padding-left: 4rem;
+  padding-right: 1rem;
 
-  .right-content {
-    display: flex;
-    align-items: center;
-    flex-direction: row-reverse;
-    padding-right: 2rem;
-    gap: 2rem;
-    margin-right: 2rem;
-    text-decoration: underline;
-    text-decoration-color: black;
-  }
+  /* Typography */
+  font-family: Oldenburg;
+}
 
+.right-content {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  padding-right: 2rem;
+  gap: 2rem;
+  margin-right: 2rem;
+  text-decoration: underline;
+  text-decoration-color: black;
+}
 
 .link:hover {
-    color: black;
+  color: black;
 }

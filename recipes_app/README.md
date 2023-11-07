@@ -23,13 +23,32 @@ This team consists of four collaborators:
 
  ### Run project 
 
-Before you run the project, make sure to cd into /recipes_app. Then run the following commands:
+#### Frontend
+Make sure to cd into /recipes_app. Then run the following commands:
 1. Run `npm install`
 2. Run `npm run dev`
 
+#### Backend
+Make sure to cd into /server. Then run the following command: 
+
+`node server.js`
+
 ## About our project
 
-Our project displays different recipes, with a view of all recipes and possibility to click on each recipe. Other functionalities will be added in the next phases of the project. 
+Our project displays different recipes, with a view of all recipes and possibility to click on each recipe. 
+
+The current functionality includes:
+
+- An AutoComplete search bar with complete search functionality
+
+- Pagination implemented with navigation functionality at the bottom fo the page. A limited subset of data is fetched at a time from the database
+
+- Detailed information about each recipe on their dedicated recipe pages. A user can click on a recipe on the landing page and see more detailed information.
+
+- Sorting and filtering functionality is implemented, complete with api calls sorting and filtering the whole dataset before it is loaded to the client
+
+- Review/comments can be made by users and are stored in the database, making it possible for anyone to write comments and everyone to see. 
+- Favorite and rating functionality stored locally using IndexedDB. The user is able to favorite recipes they want to save as well as give ratings. The ratings are to be combined with reviews for the next delivery.  
 
 ## Testing
 
