@@ -1,17 +1,19 @@
-import { Link } from "react-router-dom";
-import "../styling/HeartButton.css";
-import Favorite from "./Favorites";
-import Ratings from "./Ratings";
+import { Link } from 'react-router-dom';
+import '../styling/HeartButton.css';
+import Favorite from './Favorites';
+import Ratings from './Ratings';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 interface RecipeElementProps {
   recipeID: number;
   imagePath: string;
   title: string;
   description: string;
+  preptime: string;
 }
 
 export default function RecipeElement(props: RecipeElementProps) {
-  const { recipeID, imagePath, title, description } = props;
+  const { recipeID, imagePath, title, description, preptime } = props;
 
   return (
     <section>
@@ -27,10 +29,14 @@ export default function RecipeElement(props: RecipeElementProps) {
           <div className="button-placement">
             <Favorite title={title}></Favorite>
           </div>
+          <div className="prep-time">
+            <AccessTimeIcon></AccessTimeIcon>
+            <text>{preptime} min</text>
+          </div>
         </div>
       </div>
       <Link to={`/${recipeID}`}>
-        <p className="recipe-info"> {description}</p>
+        <p className="recipe-info"> {description.slice(0, 100)} ...</p>
       </Link>
     </section>
   );

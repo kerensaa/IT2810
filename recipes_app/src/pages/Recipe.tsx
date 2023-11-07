@@ -21,6 +21,7 @@ import Ratings from "../components/Ratings";
 import { fetchRecipeById, postReviewToRecipe } from "../api";
 import { RecipeType } from "../types";
 import CommentsDB from '../components/CommentsDB';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 export default function Recipe() {
   const { recipeId } = useParams();
@@ -34,20 +35,18 @@ export default function Recipe() {
     const fetchData = async () => {
       try {
         const data = await fetchRecipeById(recipeIdNum);
-   
+
         if (data) {
           setRecipe(data);
         } else {
-          setError("Recipe not found");
+          setError('Recipe not found');
         }
       } catch (error) {
-        console.error("Fetching error:", error); // Check any errors
-        setError("Error fetching recipe");
+        console.error('Fetching error:', error);
+        setError('Error fetching recipe');
       }
-   };
-   
-    
-    
+    };
+
     fetchData();
   }, [recipeIdNum]);
   const handleGoBack = () => {
@@ -72,7 +71,7 @@ export default function Recipe() {
 
   const postComment = async () => {
     console.log("Posting comment:", comment);
-
+  
     // Construct the review object.
     const review = {
       name: name,
@@ -81,12 +80,15 @@ export default function Recipe() {
         rating: rating
       }
     };
-
+  
     try {
       // Send the review to the backend.
       const response = await postReviewToRecipe(recipeIdNum, review);
       console.log("Review posted:", response);
-
+  
+      // Add comment to local state
+      addComment(recipeIdNum, comment);
+  
       // Clear the input fields.
       setComment("");
       setName("");
@@ -95,6 +97,7 @@ export default function Recipe() {
       console.error("Error posting the review:", error);
     }
   };
+  
 
   
   const canSubmit = name && rating && comment;
@@ -139,13 +142,13 @@ export default function Recipe() {
             <CardContent className="recipe-card-content">
               <Favorite title={recipe!.name}></Favorite>
               <h2>{recipe?.name}</h2>
+              <div className="prep-time">
+                <AccessTimeIcon></AccessTimeIcon>
+                <text>{recipe?.prep_time} min</text>
+              </div>
               <p>{recipe?.description}</p>
               <h3>Ingredients:</h3>
-              <div>
-                {recipe?.ingredients.map((ingredient, index) => (
-                  <div key={index}>{ingredient}</div>
-                ))}
-              </div>
+              <div>{recipe?.ingredients.map((ingredient, index) => <div key={index}>{ingredient}</div>)}</div>
             </CardContent>
           </Card>
           <div className="rating-card">
@@ -154,7 +157,7 @@ export default function Recipe() {
                 <Typography variant="h6">
                   What did you think about this recipe?
                 </Typography>
-                <Box mt={2}>
+                <Box mt={0}>
                   <div
                     style={{
                       display: "flex",

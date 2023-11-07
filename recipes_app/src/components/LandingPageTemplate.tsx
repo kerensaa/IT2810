@@ -1,11 +1,11 @@
+import { Autocomplete, TextField } from '@mui/material';
+import Pagination from '@mui/material/Pagination';
+import { useEffect, useState } from 'react';
 import RecipeElement from '../components/recipeElement';
 import '../styling/LandingPage.css';
 import '../styling/recipeElement.css';
-import Pagination from '@mui/material/Pagination';
+import { RecipeType } from '../types';
 import { usePagination } from '../utils/paginationUtils';
-import { useEffect, useState } from 'react';
-import { Autocomplete, TextField } from '@mui/material';
-import { RecipeType } from "../types";
 
 interface LandingPageTemplateProps {
   dataSource: RecipeType[];
@@ -13,26 +13,28 @@ interface LandingPageTemplateProps {
 
 function LandingPageTemplate(props: LandingPageTemplateProps) {
   const [searchResults, setSearchResults] = useState(props.dataSource);
+  const [noResults, setNoResults] = useState(false);
 
   useEffect(() => {
-    console.log("Setting search results with:", props.dataSource);
+    console.log('Setting search results with:', props.dataSource);
     setSearchResults(props.dataSource);
   }, [props.dataSource]);
 
-  // pagination state, variables and functions
-  const elementsPerPage: number = 3;
+  // pagination state, variables, and functions
+  const elementsPerPage: number = 9;
   const { currentPage, elementsDisplayed, handlePageChange } = usePagination(1, elementsPerPage, searchResults);
-  console.log("Elements to be displayed:", elementsDisplayed);
+  console.log('Elements to be displayed:', elementsDisplayed);
 
   function SearchFunction(values: string | null) {
-    const recipeResults = props.dataSource;
     if (typeof values === 'string' && values !== null) {
       const recipeResults = props.dataSource.filter((recipe) =>
         recipe.name.toLowerCase().includes(values.toLowerCase()),
       );
       setSearchResults(recipeResults);
+      setNoResults(recipeResults.length === 0);
     } else {
-      setSearchResults(recipeResults);
+      setSearchResults(props.dataSource);
+      setNoResults(false);
     }
   }
 
@@ -50,26 +52,21 @@ function LandingPageTemplate(props: LandingPageTemplateProps) {
         />
       </section>
       <section className="recipe-grid">
-        <>
-          {searchResults.length === 0 ? (
-            <>
-              <h1>Loading...</h1> {/* TODO: No results if list is empty, loading before fetch is complete */}
-            </>
-          ) : (
-            <>
-              {elementsDisplayed.map((recipe) => (
-                <div className="recipe-element" key={recipe.id}>
-                  <RecipeElement
-                    recipeID={recipe.id}
-                    imagePath={recipe.image_url}
-                    title={recipe.name}
-                    description={recipe.description}
-                  />
-                </div>
-              ))}
-            </>
-          )}
-        </>
+        {searchResults.length === 0 ? (
+          <h1>{noResults ? 'No results' : 'Loading...'}</h1>
+        ) : (
+          elementsDisplayed.map((recipe) => (
+            <div className="recipe-element" key={recipe.id}>
+              <RecipeElement
+                recipeID={recipe.id}
+                imagePath={recipe.image_url}
+                title={recipe.name}
+                description={recipe.description}
+                preptime={recipe.prep_time}
+              />
+            </div>
+          ))
+        )}
       </section>
       <div className="pagination-container">
         {searchResults.length === 0 ? (
