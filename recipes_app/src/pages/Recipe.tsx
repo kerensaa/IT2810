@@ -63,10 +63,9 @@ export default function Recipe() {
   const handleCommentChange = (event: { target: { value: SetStateAction<string> } }) => {
     setComment(event.target.value);
   };
-
+  
 
   const postComment = async () => {
-    // Construct the review object.
     const review = {
       name: name,
       details: {
@@ -77,16 +76,21 @@ export default function Recipe() {
   
     try {
       // Send the review to the backend.
-      await postReviewToRecipe(recipeIdNum, review);
+      const response = await postReviewToRecipe(recipeIdNum, review);
   
-      // Fetch the updated recipe data to refresh comments
-      const updatedRecipe = await fetchRecipeById(recipeIdNum);
-      setRecipe(updatedRecipe); // This will include the updated comments
-  
-      // Clear the input fields.
-      setComment("");
-      setName("");
-      setRating(0);
+      // Check if the review was posted successfully
+      if (response && response.message === 'Recipe updated successfully') {
+        // Clear the input fields first (to ensure no re-submission on reload)
+        setComment("");
+        setName("");
+        setRating(0);
+        
+        // Force a full page reload
+        window.location.reload();
+      } else {
+        // Handle any errors or unsuccessful responses here
+        console.error("Review was not posted successfully");
+      }
     } catch (error) {
       console.error("Error posting the review:", error);
     }
