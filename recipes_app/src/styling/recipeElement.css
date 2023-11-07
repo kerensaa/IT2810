@@ -71,9 +71,9 @@
 }
 
 .recipe-img {
-  margin-top: 10%;
+  margin-top: 5%;
   border-radius: 12px 12px 12px 12px;
-  width: 80%;
+  width: 40%;
 }
 
 .recipe-image {
@@ -116,8 +116,7 @@
 }
 .card-container {
   justify-content: space-between;
-
-  padding-top: 5%;
+  padding-top: 15px;
 }
 .recipe-card {
   height: auto;
@@ -127,12 +126,10 @@
   justify-content: space-between;
 }
 .rating-card {
-  margin-top: 60px;
   align-self: center;
   display: flex;
-  flex-direction: column;
-  width: 360px;
-  padding-bottom: 50px;
+  padding: 30px;
+  justify-content: center;
 }
 .recipe-card-content {
   height: auto;

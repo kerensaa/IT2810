@@ -80,103 +80,102 @@ export default function Recipe() {
     return <div>{error}</div>;
   }
   return (
-    <>
-      <Container>
-        <button className="back-button" onClick={handleGoBack}>
-          Back
-        </button>
-
-        <img className="recipe-img" src={recipe?.image_url} alt={recipe?.image_url} />
-        <div className="card-container">
-          <Card style={{ backgroundColor: '#F5EDF7' }}>
-            <CardContent className="recipe-card-content">
-              <Favorite title={recipe!.name}></Favorite>
-              <h2>{recipe?.name}</h2>
-              <div className="prep-time">
-                <AccessTimeIcon></AccessTimeIcon>
-                <text>{recipe?.prep_time} min</text>
+    <Container>
+      <button className="back-button" onClick={handleGoBack}>
+        Back
+      </button>
+      <img className="recipe-img" src={recipe?.image_url} alt={recipe?.image_url} />
+      <div className="card-container">
+        <Card style={{ backgroundColor: '#F5EDF7' }}>
+          <CardContent className="recipe-card-content" style={{ width: '95%' }}>
+            <Favorite title={recipe!.name}></Favorite>
+            <h2>{recipe?.name}</h2>
+            <div className="prep-time">
+              <AccessTimeIcon></AccessTimeIcon>
+              <text>{recipe?.prep_time} min</text>
+            </div>
+            <p>{recipe?.description}</p>
+            <h3>Ingredients:</h3>
+            <div>
+              <ul>{recipe?.ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)}</ul>
+            </div>
+          </CardContent>
+        </Card>
+        <div className="rating-card">
+          <Card style={{ backgroundColor: '#F5EDF7', marginTop: '20px' }}>
+            <CardContent>
+              <Typography variant="h6">What did you think about this recipe?</Typography>
+              <Box mt={2}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <Ratings title={recipe.name}></Ratings>
+                </div>
+              </Box>
+              <div>
+                <textarea
+                  placeholder="Add comment..."
+                  rows={4}
+                  value={comment}
+                  onChange={handleCommentChange}
+                  style={{
+                    width: '100%',
+                    fontSize: '16px',
+                    border: '1px solid #ccc',
+                  }}
+                />
+                <Button
+                  variant="contained"
+                  style={{
+                    backgroundColor: '#C5C6EF',
+                    marginLeft: '10px',
+                  }}
+                  onClick={postComment}
+                >
+                  Post
+                </Button>
               </div>
-              <p>{recipe?.description}</p>
-              <h3>Ingredients:</h3>
-              <div>{recipe?.ingredients.map((ingredient, index) => <div key={index}>{ingredient}</div>)}</div>
             </CardContent>
           </Card>
-          <div className="rating-card">
-            <Card style={{ backgroundColor: '#F5EDF7', marginTop: '20px' }}>
-              <CardContent>
-                <Typography variant="h6">What did you think about this recipe?</Typography>
-                <Box mt={2}>
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                    }}
-                  >
-                    <Ratings title={recipe.name}></Ratings>
-                  </div>
-                </Box>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <textarea
-                    placeholder="Add comment..."
-                    rows={4}
-                    value={comment}
-                    onChange={handleCommentChange}
-                    style={{
-                      width: '100%',
-                      fontSize: '16px',
-                      border: '1px solid #ccc',
-                    }}
-                  />
-                  <Button
-                    variant="contained"
-                    style={{
-                      backgroundColor: '#C5C6EF',
-                      marginLeft: '10px',
-                    }}
-                    onClick={postComment}
-                  >
-                    Post
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-          <Container style={{ display: 'flex', justifyContent: 'center' }}>
-            <Accordion className="comment-section" style={{ backgroundColor: '#BB99CD', width: '60%' }}>
-              <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-                <Typography>See comments</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                {filteredComments.map((comment) => (
-                  <div key={comment.id} style={{ position: 'relative' }}>
-                    <Paper
-                      sx={{
-                        m: 2,
-                        whiteSpace: 'pre-line',
-                        width: '95%',
-                        overflow: 'visible',
-                      }}
-                    >
-                      <div style={{ display: 'flex', position: 'relative' }}>
-                        <IconButton
-                          size="small"
-                          color="secondary"
-                          style={{ position: 'absolute', top: '0', right: '0' }}
-                          onClick={() => handleDeleteComment(comment.id)}
-                        >
-                          <DeleteIcon fontSize="small" />
-                        </IconButton>
-                      </div>
-                      <div style={{ wordWrap: 'break-word', padding: '30px 0 0 0' }}>{comment.text}</div>
-                    </Paper>
-                  </div>
-                ))}
-              </AccordionDetails>
-            </Accordion>
-          </Container>
         </div>
-      </Container>
-    </>
+        <Container style={{ display: 'flex', justifyContent: 'center' }}>
+          <Accordion className="comment-section" style={{ backgroundColor: '#BB99CD', width: '60%' }}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+              <Typography>See comments</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {filteredComments.map((comment) => (
+                <div key={comment.id} style={{ position: 'relative' }}>
+                  <Paper
+                    sx={{
+                      m: 2,
+                      whiteSpace: 'pre-line',
+                      width: '95%',
+                      overflow: 'visible',
+                    }}
+                  >
+                    <div style={{ display: 'flex', position: 'relative' }}>
+                      <IconButton
+                        size="small"
+                        color="secondary"
+                        style={{ position: 'absolute', top: '0', right: '0' }}
+                        onClick={() => handleDeleteComment(comment.id)}
+                      >
+                        <DeleteIcon fontSize="small" />
+                      </IconButton>
+                    </div>
+                    <div style={{ wordWrap: 'break-word', padding: '30px 0 0 0' }}>{comment.text}</div>
+                  </Paper>
+                </div>
+              ))}
+            </AccordionDetails>
+          </Accordion>
+        </Container>
+      </div>
+    </Container>
   );
 }
