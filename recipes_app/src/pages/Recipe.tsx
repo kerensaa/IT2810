@@ -86,12 +86,11 @@ export default function Recipe() {
           <button className="back-button" onClick={handleGoBack}>
             Back
           </button>
-
           <img className="recipe-img" src={recipe?.image_url} alt={recipe?.image_url} />
         </div>
         <div className="card-container">
-          <Card className="recipe-card" style={{ backgroundColor: '#F5EDF7' }}>
-            <CardContent className="recipe-card-content">
+          <Card className="recipe-card" style={{ backgroundColor: '#F5EDF7', width: '100%' }}>
+            <CardContent className="recipe-card-content" style={{ width: '91%' }}>
               <Favorite title={recipe!.name}></Favorite>
               <h2>{recipe?.name}</h2>
               <div className="prep-time">
@@ -101,7 +100,9 @@ export default function Recipe() {
               <div className="course-type">Course Type: {recipe?.course}</div>
               <p>{recipe?.description}</p>
               <h3>Ingredients:</h3>
-              <div>{recipe?.ingredients.map((ingredient, index) => <div key={index}>{ingredient}</div>)}</div>
+              <div>
+                <ul>{recipe?.ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)}</ul>
+              </div>
             </CardContent>
           </Card>
           <div className="rating-card">

@@ -84,9 +84,8 @@
 }
 
 .recipe-img {
-  margin-top: 10%;
   border-radius: 12px 12px 12px 12px;
-  width: 80%;
+  width: 40%;
 }
 
 .recipe-image {
@@ -123,7 +122,7 @@
   background-color: #bb99cd;
   outline-color: #bb99cd;
   align-self: flex-start;
-  margin-top: 60px;
+  margin-top: 40px;
   margin-left: -30px;
 }
 .button-container {
@@ -134,8 +133,7 @@
 
 .card-container {
   justify-content: space-between;
-
-  padding-top: 5%;
+  padding-top: 15px;
 }
 .recipe-card {
   height: auto;
@@ -145,12 +143,10 @@
   justify-content: space-between;
 }
 .rating-card {
-  margin-top: 60px;
   align-self: center;
   display: flex;
-  flex-direction: column;
-  width: 360px;
-  padding-bottom: 50px;
+  padding: 30px;
+  justify-content: center;
 }
 .recipe-card-content {
   height: auto;
@@ -203,4 +199,11 @@
 
 .comment-section {
   background-color: #bb99cd;
+}
+
+@media screen and (max-width: 1000px) {
+  .recipe-img {
+    width: 300px;
+    margin-top: 5px;
+  }
 }
