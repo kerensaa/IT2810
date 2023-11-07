@@ -18,7 +18,7 @@ interface LandingPageTemplateProps {
   showSection: boolean;
 }
 
-function LandingPageTemplate(props: LandingPageTemplateProps) {
+function LandingPageTemplate(props: Readonly<LandingPageTemplateProps>) {
   const [searchResults, setSearchResults] = useState(props.dataSource);
   const [noResults, setNoResults] = useState(false);
 
