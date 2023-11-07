@@ -3,7 +3,7 @@
   background-color: #bb99cd;
   outline-color: #bb99cd;
   align-self: center;
-  margin-right: 60px;
+  margin-right: 400px;
 }
 .top-container {
   display: flex;
@@ -14,5 +14,5 @@
 .headline {
   align-items: center;
   text-align: center;
-  margin-left: 0px;
+  margin-right: 400px;
 }
