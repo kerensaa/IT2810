@@ -90,7 +90,7 @@ export default function Recipe() {
         </div>
         <div className="card-container">
           <Card className="recipe-card" style={{ backgroundColor: '#F5EDF7', width: '100%' }}>
-            <CardContent className="recipe-card-content" style={{ width: '95%' }}>
+            <CardContent className="recipe-card-content" style={{ width: '91%' }}>
               <Favorite title={recipe!.name}></Favorite>
               <h2>{recipe?.name}</h2>
               <div className="prep-time">
