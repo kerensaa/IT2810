@@ -1,4 +1,4 @@
-const urlPath = "http://it2810-32.idi.ntnu.no/project2"
+const urlPath = "http://it2810-32.idi.ntnu.no:5000/project2"
 // const urlPath = "http://localhost:5000/recipe"
 
 
