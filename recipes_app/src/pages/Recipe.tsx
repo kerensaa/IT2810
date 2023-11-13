@@ -14,7 +14,7 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { SetStateAction, useEffect, useState } from 'react';
+import { Fragment, SetStateAction, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchRecipeById } from '../api';
 import CommentsDB from '../components/CommentsDB';
@@ -74,10 +74,10 @@ export default function Recipe() {
   };
 
   if (!recipe) {
-    return <div>Loading...</div>;
+    return <Fragment>Loading...</Fragment>;
   }
   if (error) {
-    return <div>{error}</div>;
+    return <Fragment>{error}</Fragment>;
   }
   return (
     <>
@@ -100,9 +100,9 @@ export default function Recipe() {
               <div className="course-type">Course Type: {recipe?.course}</div>
               <p>{recipe?.description}</p>
               <h3>Ingredients:</h3>
-              <div>
+              <Fragment>
                 <ul>{recipe?.ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)}</ul>
-              </div>
+              </Fragment>
             </CardContent>
           </Card>
           <div className="rating-card">
