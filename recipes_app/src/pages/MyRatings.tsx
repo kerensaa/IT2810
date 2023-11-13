@@ -27,15 +27,15 @@ export default function MyRatings() {
 
   return (
     <>
-      <div className="top-container">
+      <div className="container">
         <button className="back-button" onClick={handleGoBack}>
           Back
         </button>
-        <div className="headline">
-          <h1> My ratings</h1>
-        </div>
+        <h1 className="headline">My ratings</h1>
       </div>
-      <LandingPageTemplate dataSource={ratedRecipes} sortingOption={''} showSection={false} filterOption={''} />
+      <div className="landingPage">
+        <LandingPageTemplate dataSource={ratedRecipes} sortingOption={''} showSection={false} filterOption={''} />
+      </div>
     </>
   );
 }

@@ -3,16 +3,12 @@
   background-color: #bb99cd;
   outline-color: #bb99cd;
   align-self: center;
-  margin-right: 400px;
 }
-.top-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+.container {
+  display: grid;
+  grid-template-columns: 75px auto;
+  gap: 10px;
 }
 .headline {
-  align-items: center;
-  text-align: center;
-  margin-right: 400px;
+  align-self: center;
 }
