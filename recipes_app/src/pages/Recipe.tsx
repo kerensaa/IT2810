@@ -122,8 +122,10 @@ export default function Recipe() {
                   </div>
                 </Box>
                 <div className="rating-text-holder" style={{ display: 'flex', alignItems: 'center' }}>
+                  <label htmlFor="rating-text-holder">Add Comment:</label>
                   <textarea
                     className="rating-text-holder"
+                    id="rating-text-holder"
                     placeholder="Add comment..."
                     rows={4}
                     value={comment}
