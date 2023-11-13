@@ -77,7 +77,12 @@ export default function Recipe() {
     return <Fragment>Loading...</Fragment>;
   }
   if (error) {
-    return <Fragment>{error}</Fragment>;
+    return (
+      <Fragment>
+        <span id="error-result" aria-live="polite"></span>
+        {error}
+      </Fragment>
+    );
   }
   return (
     <>
