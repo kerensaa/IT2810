@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { fetchRecipes } from '../api';
 import useIndexedDBFavorites from '../components/FavoritesDB';
 import LandingPageTemplate from '../components/LandingPageTemplate';
@@ -6,6 +7,7 @@ import '../styling/BackButton.css';
 import { RecipeType } from '../types';
 
 export default function MyFavorites() {
+  const navigate = useNavigate();
   const { favorites } = useIndexedDBFavorites();
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
   useEffect(() => {
@@ -18,7 +20,7 @@ export default function MyFavorites() {
   }, []);
   const favoritedRecipes = recipes.filter((recipe) => favorites.includes(recipe.name));
   const handleGoBack = () => {
-    history.back();
+    navigate('/');
   };
 
   return (

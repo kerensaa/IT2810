@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate instead of useHistory
 import { fetchRecipes } from '../api';
 import LandingPageTemplate from '../components/LandingPageTemplate';
 import useIndexedDBRatings from '../components/RatingsDB';
@@ -10,6 +11,7 @@ interface Ratings {
 }
 
 export default function MyRatings() {
+  const navigate = useNavigate();
   const { ratings } = useIndexedDBRatings();
   const [recipes, setRecipes] = useState<RecipeType[]>([]);
   useEffect(() => {
@@ -20,9 +22,11 @@ export default function MyRatings() {
 
     fetchData();
   }, []);
+
   const ratedRecipes = recipes.filter((recipe) => (ratings as Ratings)[recipe.name]);
+
   const handleGoBack = () => {
-    history.back();
+    navigate('/');
   };
 
   return (
