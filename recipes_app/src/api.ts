@@ -1,5 +1,5 @@
-const urlPath = "http://it2810-32.idi.ntnu.no:5000/recipe/";
-// const urlPath = "http://localhost:5000/recipe"
+// const urlPath = "http://it2810-32.idi.ntnu.no:5000/recipe/";
+const urlPath = "http://localhost:5000/recipe"
 
 
 export const fetchRecipeById = async (id: number): Promise<any> => {
