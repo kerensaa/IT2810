@@ -1,31 +1,19 @@
 import { useEffect, useState } from 'react';
 import LandingPageTemplate from '../components/LandingPageTemplate';
-import { fetchRecipes } from '../api';
-import { RecipeType } from '../types';
 
 function LandingPage() {
-  const [recipes, setRecipes] = useState<RecipeType[]>([]);
+  const [sortingOption, setSortingOption] = useState('default');
+  const [filterOption, setFilterOption] = useState('default');
 
-  // Get sorting option from URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const initialSortOption = urlParams.get('sort') || 'default';
-  const initialFilterOption = urlParams.get('course') || 'default';
-
-  const [sortingOption, setSortingOption] = useState(initialSortOption);
-  const [filterOption, setFilterOption] = useState(initialFilterOption);
-
+  // Get sorting and filter option from URL
   useEffect(() => {
-    const fetchData = async () => {
-      const recipes = await fetchRecipes(sortingOption, filterOption); // For all recipes
-      setRecipes(recipes);
-    };
-
-    fetchData();
-  }, [sortingOption, filterOption]);
+    const urlParams = new URLSearchParams(window.location.search);
+    setSortingOption(urlParams.get('sort') || 'default');
+    setFilterOption(urlParams.get('course') || 'default');
+  }, []);
 
   return (
     <LandingPageTemplate
-      dataSource={recipes}
       sortingOption={sortingOption}
       onSortChange={setSortingOption}
       filterOption={filterOption}
