@@ -14,7 +14,7 @@ import {
   Paper,
   Typography,
 } from '@mui/material';
-import { SetStateAction, useEffect, useState } from 'react';
+import { Fragment, SetStateAction, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchRecipeById } from '../api';
 import CommentsDB from '../components/CommentsDB';
@@ -39,7 +39,6 @@ export default function Recipe() {
           setError('Recipe not found');
         }
       } catch (error) {
-        console.error('Fetching error:', error);
         setError('Error fetching recipe');
       }
     };
@@ -74,10 +73,15 @@ export default function Recipe() {
   };
 
   if (!recipe) {
-    return <div>Loading...</div>;
+    return <Fragment>Loading...</Fragment>;
   }
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <Fragment>
+        <span id="error-result" aria-live="polite"></span>
+        {error}
+      </Fragment>
+    );
   }
   return (
     <>
@@ -100,9 +104,9 @@ export default function Recipe() {
               <div className="course-type">Course Type: {recipe?.course}</div>
               <p>{recipe?.description}</p>
               <h3>Ingredients:</h3>
-              <div>
+              <Fragment>
                 <ul>{recipe?.ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)}</ul>
-              </div>
+              </Fragment>
             </CardContent>
           </Card>
           <div className="rating-card">
@@ -122,8 +126,10 @@ export default function Recipe() {
                   </div>
                 </Box>
                 <div className="rating-text-holder" style={{ display: 'flex', alignItems: 'center' }}>
+                  <label htmlFor="rating-text-holder">Add Comment:</label>
                   <textarea
                     className="rating-text-holder"
+                    id="rating-text-holder"
                     placeholder="Add comment..."
                     rows={4}
                     value={comment}

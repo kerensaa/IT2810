@@ -1,16 +1,15 @@
 import { Autocomplete, TextField } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
-import { useEffect, useState } from 'react';
 import RecipeElement from '../components/recipeElement';
 import '../styling/LandingPage.css';
 import '../styling/recipeElement.css';
-import { RecipeType } from '../types';
 import { usePagination } from '../utils/paginationUtils';
 import Sorting from './Sorting';
 import Filter from './Filtering';
+import { useEffect, useState } from 'react';
+import { RecipeType } from '../types';
 
 interface LandingPageTemplateProps {
-  dataSource: RecipeType[];
   sortingOption: string;
   filterOption: string;
   onSortChange?: (value: string) => void;
@@ -19,29 +18,34 @@ interface LandingPageTemplateProps {
 }
 
 function LandingPageTemplate(props: Readonly<LandingPageTemplateProps>) {
-  const [searchResults, setSearchResults] = useState(props.dataSource);
-  const [noResults, setNoResults] = useState(false);
+  const elementsPerPage: number = 9;
+  const {
+    currentPage,
+    elementsDisplayed,
+    handlePageChange,
+    loading,
+    totalPages
+  } = usePagination(1, elementsPerPage, props.sortingOption, props.filterOption);
+  
+  // State for handling search within the currently displayed elements
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<RecipeType[]>([]);
 
   useEffect(() => {
-    setSearchResults(props.dataSource);
-  }, [props.dataSource]);
-
-  // pagination state, variables, and functions
-  const elementsPerPage: number = 9;
-  const { currentPage, elementsDisplayed, handlePageChange } = usePagination(1, elementsPerPage, searchResults);
-
-  function SearchFunction(values: string | null) {
-    if (typeof values === 'string' && values !== null) {
-      const recipeResults = props.dataSource.filter((recipe) =>
-        recipe.name.toLowerCase().includes(values.toLowerCase()),
+    // If searchQuery is not empty, filter the displayed elements
+    if (searchQuery) {
+      const filtered = elementsDisplayed.filter((recipe) =>
+        recipe.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      setSearchResults(recipeResults);
-      setNoResults(recipeResults.length === 0);
+      setSearchResults(filtered);
     } else {
-      setSearchResults(props.dataSource);
-      setNoResults(false);
+      setSearchResults(elementsDisplayed);
     }
-  }
+  }, [searchQuery, elementsDisplayed]);
+
+  const handleSearchChange = (_event: React.ChangeEvent<{}>, value: string | null) => {
+    setSearchQuery(value || '');
+  };
 
   return (
     <>
@@ -52,21 +56,24 @@ function LandingPageTemplate(props: Readonly<LandingPageTemplateProps>) {
         </section>
       )}
       <section className={'search_bar'}>
+        <label htmlFor="search-box">Search:</label>
         <Autocomplete
           disablePortal
-          id="combo-box-demo"
-          options={props.dataSource.map((option) => option.name)}
-          onChange={(_, newValue) => SearchFunction(newValue)}
+          id="search-box"
+          options={elementsDisplayed.map((option) => option.name)}
+          onInputChange={handleSearchChange}
           renderInput={(params) => <TextField {...params} label="Search" />}
           freeSolo
           fullWidth
         />
       </section>
       <section className="recipe-grid">
-        {searchResults.length === 0 ? (
-          <h1>{noResults ? 'No results' : 'Loading...'}</h1>
+        {loading ? (
+          <h1>Loading...</h1>
+        ) : searchResults.length === 0 ? (
+          <h1>No results found</h1>
         ) : (
-          elementsDisplayed.map((recipe) => (
+          searchResults.map((recipe) => (
             <div className="recipe-element" key={recipe.id}>
               <RecipeElement
                 recipeID={recipe.id}
@@ -80,17 +87,14 @@ function LandingPageTemplate(props: Readonly<LandingPageTemplateProps>) {
         )}
       </section>
       <div className="pagination-container">
-        {searchResults.length === 0 ? (
-          <></>
-        ) : (
-          <Pagination
-            count={Math.ceil(searchResults.length / elementsPerPage)}
-            color="secondary"
-            shape="rounded"
-            page={currentPage}
-            onChange={handlePageChange}
-          />
-        )}
+        <Pagination
+          count={totalPages}
+          color="secondary"
+          shape="rounded"
+          page={currentPage}
+          onChange={handlePageChange}
+          disabled={loading}
+        />
       </div>
     </>
   );

@@ -1,28 +1,24 @@
-.h-container{
-    display: inline-flex;
-    width: 40px;
-    height: 40px;
-    padding: 8px;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
+.h-container {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
 
-    border-radius: 18px;
-    background: #C5C6EF;
+  border-radius: 18px;
+  background: #c5c6ef;
 
-    /* Background Blur */
-    backdrop-filter: blur(25px);
+  /* Background Blur */
+  backdrop-filter: blur(25px);
 }
 
-.h-container:hover{
-    box-shadow: black;
-    
+.h-container:hover {
+  box-shadow: black;
 }
 
 .h-container.favorited {
-    background: #FDB0C0;
-  }
-
-
-
+  background: #fdb0c0;
+}
