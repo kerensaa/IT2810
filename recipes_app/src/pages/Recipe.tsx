@@ -39,7 +39,6 @@ export default function Recipe() {
           setError('Recipe not found');
         }
       } catch (error) {
-        console.error('Fetching error:', error);
         setError('Error fetching recipe');
       }
     };

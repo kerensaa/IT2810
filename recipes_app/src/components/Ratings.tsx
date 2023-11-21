@@ -17,8 +17,8 @@ function Ratings({ title }: { title: string }) {
       <Rating
         name="simple-controlled"
         value={startValue}
-        onChange={(event, newValue) => toggleRatings(title, newValue)}
-      />
+        onChange={(_, newValue) => toggleRatings(title, newValue === null ? 0 : newValue)}
+        />
     </>
   );
 }
