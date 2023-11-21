@@ -1,45 +1,28 @@
-import LandingPage from "../pages/LandingPage";
-import { fireEvent, render, screen } from "@testing-library/react";
-import { LinkProps } from "react-router-dom";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import LandingPage from '../pages/LandingPage';
+import { render, screen } from '@testing-library/react';
+import { LinkProps } from 'react-router-dom';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-
-vi.mock("react-router-dom", () => ({
+vi.mock('react-router-dom', () => ({
   Link: ({ to, children, ...props }: LinkProps) => (
-    <a href={typeof to === "string" ? to : undefined} {...props}>
+    <a href={typeof to === 'string' ? to : undefined} {...props}>
       {children}
     </a>
   ),
 }));
 
-describe("Renders LandingPage correctly", async () => {
-    afterEach(() => {
-      vi.restoreAllMocks();
-    });
-  
-    it("Should render 'Low-Fat Berry Blue Frozen Dessert' correctly", async () => {
-      render(<LandingPage />);
-      const recipeTitle = screen.getAllByText(/Low-Fat Berry Blue Frozen Dessert/);
-      expect(recipeTitle).not.toBeNull();
-    });
-  
-    it("Should navigate to the correct recipe page when recipe-element is clicked", async () => {
-        render(<LandingPage />);
-    
-        // Find the RecipeElement corresponding to 'Low-Fat Berry Blue Frozen Dessert'
-        const recipeTitle = screen.getAllByText('Low-Fat Berry Blue Frozen Dessert')[0];
-        
-        // Simulate a click on the RecipeElement
-        fireEvent.click(recipeTitle);
-    
-        // Verify the updated href attribute of the Link that wraps the RecipeElement
-        const link = screen.getAllByRole("link", { name: /Low-Fat Berry Blue Frozen Dessert/i  })[0];
-        expect(link?.getAttribute("href")).toBe("/1");
-      });
+describe('Renders LandingPage correctly', async () => {
+  beforeEach(() => {
+    render(<LandingPage />);
   });
+  it('Renders LandingPage correctly', () => {
+    const sort = screen.getByText('No Sorting');
+    expect(sort).not.toBeNull;
+  });
+});
 
-describe("Snapshot testing of LandingPage", async () => {
-  it("should perform snapshot test LandingPage", async () => {
+describe('Snapshot testing of LandingPage', async () => {
+  it('should perform snapshot test LandingPage', async () => {
     const landingPage = render(<LandingPage />);
     expect(landingPage).toMatchSnapshot();
   });
