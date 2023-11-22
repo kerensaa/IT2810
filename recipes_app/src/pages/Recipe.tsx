@@ -1,3 +1,4 @@
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
@@ -14,13 +15,12 @@ import {
   Typography,
 } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { SetStateAction, useState, useEffect } from "react";
+import { SetStateAction, useState, useEffect, Fragment } from "react";
 import { useParams } from "react-router-dom";
 import Favorite from "../components/Favorites";
 import Ratings from "../components/Ratings";
 import { fetchRecipeById, postReviewToRecipe } from "../api";
 import { RecipeType } from "../types";
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 export default function Recipe() {
   const { recipeId } = useParams();
@@ -117,10 +117,15 @@ export default function Recipe() {
   // };
 
   if (!recipe) {
-    return <div>Loading...</div>;
+    return <Fragment>Loading...</Fragment>;
   }
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <Fragment>
+        <span id="error-result" aria-live="polite"></span>
+        {error}
+      </Fragment>
+    );
   }
   return (
     <>
@@ -144,9 +149,12 @@ export default function Recipe() {
                 <AccessTimeIcon></AccessTimeIcon>
                 <text>{recipe?.prep_time} min</text>
               </div>
+              <div className="course-type">Course Type: {recipe?.course}</div>
               <p>{recipe?.description}</p>
               <h3>Ingredients:</h3>
-              <div>{recipe?.ingredients.map((ingredient, index) => <div key={index}>{ingredient}</div>)}</div>
+              <Fragment>
+                <ul>{recipe?.ingredients.map((ingredient, index) => <li key={index}>{ingredient}</li>)}</ul>
+              </Fragment>
             </CardContent>
           </Card>
           <div className="rating-card">
@@ -157,6 +165,7 @@ export default function Recipe() {
                 </Typography>
                 <Box mt={0}>
                   <div
+                    className="rating-box-style"
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -179,6 +188,8 @@ export default function Recipe() {
                 </Box>
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <textarea
+                    className="rating-text-holder"
+                    id="rating-text-holder"
                     placeholder="Add comment..."
                     rows={4}
                     value={comment}
@@ -191,6 +202,7 @@ export default function Recipe() {
                   />
                   {/* Disable the Post button if canSubmit is false */}
                   <Button
+                    className="post-button"
                     variant="contained"
                     style={{
                       backgroundColor: "#C5C6EF",

@@ -1,3 +1,11 @@
+#root {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 50px;
+}
+
 /* For phone-sized screens */
 @media (max-width: 798px) {
   .recipe-grid {
@@ -70,10 +78,14 @@
   gap: 0.3vh;
 }
 
+.course-type {
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+}
+
 .recipe-img {
-  margin-top: 10%;
   border-radius: 12px 12px 12px 12px;
-  width: 80%;
+  width: 40%;
 }
 
 .recipe-image {
@@ -105,19 +117,23 @@
   letter-spacing: 0.25px;
 }
 
-.back-button {
+.button-container button {
   border: #bb99cd;
   background-color: #bb99cd;
   outline-color: #bb99cd;
-  position: absolute;
-  top: 130px;
-  left: 80px;
+  align-self: flex-start;
+  margin-top: 40px;
+  margin-left: -30px;
+}
+.button-container {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
+
 .card-container {
   justify-content: space-between;
-
-  padding-top: 5%;
+  padding-top: 15px;
 }
 .recipe-card {
   height: auto;
@@ -127,12 +143,10 @@
   justify-content: space-between;
 }
 .rating-card {
-  margin-top: 60px;
   align-self: center;
   display: flex;
-  flex-direction: column;
-  width: 360px;
-  padding-bottom: 50px;
+  padding: 30px;
+  justify-content: center;
 }
 .recipe-card-content {
   height: auto;
@@ -185,4 +199,11 @@
 
 .comment-section {
   background-color: #bb99cd;
+}
+
+@media screen and (max-width: 1000px) {
+  .recipe-img {
+    width: 300px;
+    margin-top: 5px;
+  }
 }

@@ -1,0 +1,17 @@
+.back-button {
+  border: #bb99cd;
+  background-color: #bb99cd;
+  outline-color: #bb99cd;
+  align-self: center;
+}
+.container {
+  display: grid;
+  grid-template-columns: 75px auto;
+  align-items: center;
+}
+.headline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 60px;
+}
