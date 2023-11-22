@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchRecipes } from '../api';
-import { RecipeType } from "../types";
+import { setCurrentPage } from '../actions/paginationActions';
+import { RootState } from '../reducers/index.js';
+import { RecipeType } from '../types';
 
-export function usePagination(initialPage: number, itemsPerPage: number, sortOption?: string, filterOption?: string) {
-  const [currentPage, setCurrentPage] = useState(initialPage);
+export function usePagination(itemsPerPage: number, sortOption?: string, filterOption?: string) {
+  // Using useSelector to access the currentPage from the Redux store
+  const currentPage = useSelector((state: RootState) => state.pagination.currentPage);
+  const dispatch = useDispatch();
+
   const [elementsDisplayed, setElementsDisplayed] = useState<RecipeType[]>([]);
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
@@ -13,9 +19,9 @@ export function usePagination(initialPage: number, itemsPerPage: number, sortOpt
     try {
       const data = await fetchRecipes(currentPage, itemsPerPage, sortOption, filterOption);
       setElementsDisplayed(data.recipes);
-      setTotalPages(data.totalPages); // Assuming the backend sends the total number of pages
+      setTotalPages(data.totalPages);
     } catch (error) {
-      console.error("Error fetching recipes:", error);
+      console.error('Error fetching recipes:', error);
     } finally {
       setLoading(false);
     }
@@ -23,10 +29,10 @@ export function usePagination(initialPage: number, itemsPerPage: number, sortOpt
 
   useEffect(() => {
     fetchData();
-  }, [currentPage, sortOption, filterOption]);
+  }, [currentPage, sortOption, filterOption, dispatch]);
 
   const handlePageChange = (_event: unknown, page: number) => {
-    setCurrentPage(page);
+    dispatch(setCurrentPage(page));
   };
 
   return { currentPage, elementsDisplayed, handlePageChange, loading, totalPages };

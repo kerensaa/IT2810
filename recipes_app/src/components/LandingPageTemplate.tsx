@@ -19,14 +19,12 @@ interface LandingPageTemplateProps {
 
 function LandingPageTemplate(props: Readonly<LandingPageTemplateProps>) {
   const elementsPerPage: number = 9;
-  const {
-    currentPage,
-    elementsDisplayed,
-    handlePageChange,
-    loading,
-    totalPages
-  } = usePagination(1, elementsPerPage, props.sortingOption, props.filterOption);
-  
+  const { currentPage, elementsDisplayed, handlePageChange, loading, totalPages } = usePagination(
+    elementsPerPage,
+    props.sortingOption,
+    props.filterOption,
+  );
+
   // State for handling search within the currently displayed elements
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<RecipeType[]>([]);
@@ -35,7 +33,7 @@ function LandingPageTemplate(props: Readonly<LandingPageTemplateProps>) {
     // If searchQuery is not empty, filter the displayed elements
     if (searchQuery) {
       const filtered = elementsDisplayed.filter((recipe) =>
-        recipe.name.toLowerCase().includes(searchQuery.toLowerCase())
+        recipe.name.toLowerCase().includes(searchQuery.toLowerCase()),
       );
       setSearchResults(filtered);
     } else {

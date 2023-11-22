@@ -12,7 +12,6 @@ function recipeReducer(state = initialState, action) {
       return { ...state, loading: false, recipes: action.payload };
     case 'FETCH_RECIPES_FAILURE':
       return { ...state, loading: false, error: action.payload };
-    // ... other actions
     default:
       return state;
   }

@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
-import recipeReducer from './recipeReducer'; // You will create reducers like this one
+import recipeReducer from './recipeReducer';
+import paginationReducer from './paginationReducer';
 
 const rootReducer = combineReducers({
   recipes: recipeReducer,
-  // ... add other reducers here
+  pagination: paginationReducer,
 });
 
 export default rootReducer;
