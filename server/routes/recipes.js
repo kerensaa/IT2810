@@ -1,6 +1,6 @@
 const express = require("express");
 const recipeRoutes = express.Router();
- const dbo = require("../db/conn");
+const dbo = require("../db/conn");
  
 // convert the id from string to ObjectId for the _id.
 
@@ -44,50 +44,30 @@ recipeRoutes.get("/recipe/:id", (req, res) => {
 });
  
 // update a recipe by id.
-recipeRoutes.post("/update/:id", (req, res) => {
-  console.log("Updating recipe for ID:", req.params.id);
-  
+recipeRoutes.post("/update/:id", async (req, res) => {
   const db_connect = dbo.getDb("recipe_db");
-  const recipeId = parseInt(req.params.id, 10); // Convert the id string to an integer
+  const recipeId = parseInt(req.params.id, 10);
 
-  // Construct the update object dynamically based on provided fields in req.body
-  const fieldsToUpdate = [
-    'name', 'ingredients', 'description', 'image_url', 'rating', 
-    'instructions', 'cuisine', 'course', 'diet', 'prep_time'
-  ];
-
-  const setValues = {};
-  fieldsToUpdate.forEach(field => {
-    if (req.body[field]) {
-      setValues[field] = req.body[field];
-    }
-  });
-  
   if (req.body.reviews && req.body.reviews.length > 0) {
-    const review = req.body.reviews[0]; // Get the first review from the array
-    
-    const pushValues = {
-        reviews: {
-            name: review.name,
-            details: {
-                reviewText: review.details.reviewText,
-                rating: review.details.rating
-            }
-        }
-    };
-    
-    db_connect.collection("indian_recipes")
-        .updateOne({ id: recipeId }, { $push: pushValues })
-        .then(result => {
-            // rest of your code
-        })
-        .catch(err => {
-            // handle error
-        });
-}
+    const review = req.body.reviews[0];
+    try {
+      const result = await db_connect.collection("indian_recipes")
+        .updateOne({ id: recipeId }, { $push: { reviews: review } });
 
+      if (result.modifiedCount === 1) {
+        res.json({ message: 'Recipe updated successfully' });
+      } else {
+        res.status(404).json({ message: 'Recipe not found' });
+      }
+    } catch (err) {
+      console.error("Error updating recipe:", err);
+      res.status(500).json({ error: 'Error updating recipe' });
+    }
+  } else {
+    res.status(400).json({ message: 'No review to add' });
+  }
 });
- 
+
 module.exports = recipeRoutes;
 
    
