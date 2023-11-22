@@ -2,9 +2,6 @@ const express = require("express");
 const recipeRoutes = express.Router();
 const dbo = require("../db/conn");
 
-// convert the id from string to ObjectId for the _id.
-const ObjectId = require("mongodb").ObjectId;
-
 recipeRoutes.get("/recipe", (req, res) => {
   const db_connect = dbo.getDb("recipe_db");
 
