@@ -1,4 +1,4 @@
-describe('Landing Page', () => {
+describe('Click on recipe', () => {
   beforeEach('successfully loads', () => {
     cy.visit('/');
   });
@@ -6,15 +6,21 @@ describe('Landing Page', () => {
   it('can click on a page', () => {
     cy.wait(2000);
 
-    cy.get('.recipe-element:first').click();
+    cy.get('.recipe-element').contains('Arbi Shimla Mirch Sabzi Recipe – Colocasia Capsicum Sabzi').click();
     cy.wait(2000);
-    cy.url().should('include', 'http://localhost:5173/1');
+    cy.url().should('include', 'http://it2810-32.idi.ntnu.no/project2/3');
     cy.wait(2000);
     cy.get('.back-button').click();
-    cy.url().should('include', 'http://localhost:5173/');
+    cy.url().should('include', 'http://it2810-32.idi.ntnu.no/project2/');
+  });
+});
+
+describe('Use pagination on landing page', () => {
+  beforeEach('successfully loads', () => {
+    cy.visit('/');
   });
 
-  xit('can use pagination and click', () => {
+  it('can use pagination and click', () => {
     cy.wait(5000);
     cy.get('[aria-label="Go to next page"]').click();
     cy.wait(2000);
@@ -24,12 +30,20 @@ describe('Landing Page', () => {
     cy.wait(2000);
     cy.get('[aria-label="Go to previous page"]').click();
     cy.wait(2000);
-    cy.get('.recipe-element').eq(2).click();
-    cy.url().should('include', 'http://localhost:5173/21');
+    cy.get('[aria-label="Go to next page"]').click();
+    cy.wait(2000);
+    cy.get('.recipe-element').contains('Mangalorean Style Sonay Sukka Recipe - Dry Chickpea Stir Fry').click();
+    cy.url().should('include', 'http://it2810-32.idi.ntnu.no/project2/30');
+  });
+});
+
+describe('Search on landing page', () => {
+  beforeEach('successfully loads', () => {
+    cy.visit('/');
   });
 
-  xit('can search', () => {
-    cy.get('#search-box').click();
+  it('can search', () => {
+    cy.get('#combo-box-demo').click();
     cy.wait(3000);
     cy.get('.MuiPopper-root').contains('Ambur Style Brinjal Curry Recipe').click();
     cy.wait(2000);
@@ -37,9 +51,9 @@ describe('Landing Page', () => {
     cy.wait(2000);
     cy.get('.back-button').click();
     cy.wait(2000);
-    cy.get('#search-box').click();
+    cy.get('#combo-box-demo').click();
     cy.wait(2000);
-    cy.get('#search-box').type('konkani{enter}');
+    cy.get('#combo-box-demo').type('konkani{enter}');
     cy.wait(2000);
     cy.get('.recipe-element').contains(
       'Konkani Style Mooga Ghushi Recipe-Sprouted Whole Green Gram In Tangy Coconut Gravy',
@@ -47,19 +61,24 @@ describe('Landing Page', () => {
     cy.wait(2000);
     cy.get('[aria-label="Clear"]').click();
     cy.wait(2000);
-    cy.get('#search-box').type('ha{enter}');
+    cy.get('#combo-box-demo').type('ha{enter}');
     cy.wait(2000);
     cy.get('.recipe-element').eq(1).click();
     cy.wait(2000);
     cy.get('.back-button').click();
     cy.wait(2000);
-    cy.get('#search-box').type('esfhnosbf{enter}');
+    cy.get('#combo-box-demo').type('esfhnosbf{enter}');
 
     cy.get('.recipe-grid').should('not.have.descendants');
     cy.get('.recipe-grid').should('have.text', 'No results');
     cy.get('[aria-label="Clear"]').click();
   });
-  xit('can favorite and and un-favorite', () => {
+});
+describe('Favorite and un-favorite on landing page', () => {
+  beforeEach('successfully loads', () => {
+    cy.visit('/');
+  });
+  it('can favorite and and un-favorite', () => {
     cy.wait(4000);
     cy.get('.recipe-element').eq(6).find('.rate-and-favorite .button-placement .h-container').click();
     cy.wait(2000);
@@ -67,7 +86,7 @@ describe('Landing Page', () => {
     cy.wait(2000);
     cy.contains('My Favorites').click();
     cy.wait(2000);
-    cy.url().should('include', 'http://localhost:5173/MyFavorites');
+    cy.url().should('include', 'http://it2810-32.idi.ntnu.no/project2/MyFavorites');
     cy.wait(2000);
     cy.get('.recipe-element')
       .contains('Konkani Style Mooga Ghushi Recipe-Sprouted Whole Green Gram In Tangy Coconut Gravy')
@@ -83,16 +102,22 @@ describe('Landing Page', () => {
       .should('not.exist');
     cy.contains('My Favorites').click();
     cy.wait(2000);
-    cy.url().should('include', 'http://localhost:5173/MyFavorites');
+    cy.url().should('include', 'http://it2810-32.idi.ntnu.no/project2/MyFavorites');
     cy.wait(2000);
     cy.get('.recipe-element')
       .contains('Konkani Style Mooga Ghushi Recipe-Sprouted Whole Green Gram In Tangy Coconut Gravy')
       .should('not.exist');
     cy.wait(2000);
     cy.get('.back-button').click();
-    cy.url().should('include', 'http://localhost:5173/');
+    cy.url().should('include', 'http://it2810-32.idi.ntnu.no/project2/');
   });
-  xit('can rate', () => {
+});
+
+describe('Rate recipe on landing page', () => {
+  beforeEach('successfully loads', () => {
+    cy.visit('/');
+  });
+  it('can rate', () => {
     cy.wait(4000);
     cy.get('.recipe-element').eq(5).find('.MuiRating-root').contains('4 Stars').click();
     cy.wait(2000);
@@ -105,13 +130,13 @@ describe('Landing Page', () => {
     cy.wait(2000);
     cy.contains('My Ratings').click();
     cy.wait(2000);
-    cy.url().should('include', 'http://localhost:5173/MyRatings');
+    cy.url().should('include', 'http://it2810-32.idi.ntnu.no/project2/MyRatings');
     cy.wait(2000);
     cy.get('.recipe-element').contains('Cabbage And Carrot Thoran Recipe').should('exist');
     cy.wait(2000);
     cy.get('.back-button').click();
     cy.wait(2000);
-    cy.url().should('include', 'http://localhost:5173/');
+    cy.url().should('include', 'http://it2810-32.idi.ntnu.no/project2/');
     cy.get('.recipe-element').eq(5).find('.MuiRating-root').contains('2 Stars').click();
     cy.get('.recipe-element')
       .eq(5)
@@ -120,7 +145,13 @@ describe('Landing Page', () => {
       .find('.MuiRating-iconFilled')
       .should('not.exist');
   });
-  xit('can sort and filter', () => {
+});
+
+describe('Sort and filter the recipes', () => {
+  beforeEach('successfully loads', () => {
+    cy.visit('/');
+  });
+  it('can sort and filter', () => {
     cy.wait(2000);
     cy.get('.sort_select').click();
     cy.wait(1000);
@@ -185,7 +216,13 @@ describe('Landing Page', () => {
     cy.get('.MuiList-root .MuiMenuItem-root').contains('No filter').should('have.attr', 'aria-selected', 'true');
     cy.get('[data-value="default"]').click();
   });
-  xit('check if sorted', () => {
+});
+
+describe('Check if sorting works', () => {
+  beforeEach('successfully loads', () => {
+    cy.visit('/');
+  });
+  it('check if sorted', () => {
     cy.wait(2000);
     cy.get('.sort_select').click();
     cy.get('[data-value="name"]').click();
@@ -196,7 +233,12 @@ describe('Landing Page', () => {
       expect(texts).to.deep.equal(sortedTexts);
     });
   });
-  xit('Rate, favorite and comment on individual page', () => {
+});
+describe('Rate, facorite and comment on individual page', () => {
+  beforeEach('successfully loads', () => {
+    cy.visit('/');
+  });
+  it('Rate, favorite and comment on individual page', () => {
     cy.wait(6000);
     cy.get('.recipe-element').eq(4).click();
     cy.wait(2000);
@@ -233,19 +275,19 @@ describe('Landing Page', () => {
     cy.wait(2000);
     cy.contains('My Ratings').click();
     cy.wait(2000);
-    cy.url().should('include', 'http://localhost:5173/MyRatings');
+    cy.url().should('include', 'http://it2810-32.idi.ntnu.no/project2/MyRatings');
     cy.wait(2000);
     cy.get('.recipe-element').contains('Mavinakayi Menasinakai Curry Recipe - Raw Mango Coconut Curry').should('exist');
     cy.wait(2000);
     cy.contains('My Favorites').click();
     cy.wait(2000);
-    cy.url().should('include', 'http://localhost:5173/MyFavorites');
+    cy.url().should('include', 'http://it2810-32.idi.ntnu.no/project2/MyFavorites');
     cy.wait(2000);
     cy.get('.recipe-element')
       .contains('Mavinakayi Menasinakai Curry Recipe  - Raw Mango Coconut Curry')
       .should('not.exist');
     cy.wait(2000);
     cy.get('.back-button').click();
-    cy.url().should('include', 'http://localhost:5173/');
+    cy.url().should('include', 'http://it2810-32.idi.ntnu.no/project2/');
   });
 });
