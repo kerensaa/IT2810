@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Router>
         <Navbar></Navbar>
         <Routes>
-          <Route path="/project2/project2" element={<LandingPage />} />
+          <Route path="/project2/" element={<LandingPage />} />
           <Route path="/project2/project2/:recipeId" element={<Recipe />} />
           <Route path="/project2/project2/MyFavorites" element={<MyFavorites />} />
           <Route path="/project2/project2/MyRatings" element={<MyRatings />} />
