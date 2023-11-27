@@ -3,7 +3,7 @@ describe('Click on recipe', () => {
     cy.visit('/');
   });
 
-  xit('can click on a page', () => {
+  it('can click on a page', () => {
     cy.wait(2000);
 
     cy.get('.recipe-element').contains('Arbi Shimla Mirch Sabzi Recipe – Colocasia Capsicum Sabzi').click();
@@ -20,7 +20,7 @@ describe('Use pagination on landing page', () => {
     cy.visit('/');
   });
 
-  xit('can use pagination and click', () => {
+  it('can use pagination and click', () => {
     cy.wait(5000);
     cy.get('[aria-label="Go to next page"]').click();
     cy.wait(2000);
