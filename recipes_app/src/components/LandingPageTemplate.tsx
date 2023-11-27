@@ -52,8 +52,8 @@ function LandingPageTemplate(props: Readonly<LandingPageTemplateProps>) {
         </section>
       )}
       <section className={'search_bar'}>
-        <label htmlFor="search-box">Search:</label>
         <Autocomplete
+          aria-label="search"
           disablePortal
           id="search-box"
           options={props.dataSource.map((option) => option.name)}

@@ -127,8 +127,8 @@ export default function Recipe() {
                   </div>
                 </Box>
                 <div className="rating-text-holder" style={{ display: 'flex', alignItems: 'center' }}>
-                  <label htmlFor="rating-text-holder">Add Comment:</label>
                   <textarea
+                    aria-label="Add comment"
                     className="rating-text-holder"
                     id="rating-text-holder"
                     placeholder="Add comment..."
@@ -145,7 +145,7 @@ export default function Recipe() {
                     className="post-button"
                     variant="contained"
                     style={{
-                      backgroundColor: '#C5C6EF',
+                      backgroundColor: '#6B3B83',
                       marginLeft: '10px',
                     }}
                     onClick={postComment}
@@ -157,9 +157,9 @@ export default function Recipe() {
             </Card>
           </div>
           <Container className="comment-container" style={{ display: 'flex', justifyContent: 'center' }}>
-            <Accordion className="comment-section" style={{ backgroundColor: '#BB99CD', width: '60%' }}>
+            <Accordion className="comment-section" style={{ backgroundColor: '#6B3B83', width: '60%' }}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-                <Typography>See comments</Typography>
+                <Typography style={{ color: 'white' }}>See comments</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 {filteredComments.map((comment) => (

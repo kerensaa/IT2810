@@ -107,7 +107,7 @@
 
   align-self: stretch;
   /* Typography */
-  color: var(--m-3-sys-light-on-surface-variant, #49454f);
+  color: black;
 
   font-family: Inter;
   font-size: 13px;
@@ -119,7 +119,7 @@
 
 .button-container button {
   border: #bb99cd;
-  background-color: #bb99cd;
+  background-color: #6b3b83;
   outline-color: #bb99cd;
   align-self: flex-start;
   margin-top: 40px;
