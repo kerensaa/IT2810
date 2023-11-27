@@ -7,15 +7,15 @@ function Navbar() {
       <nav className="nav">
         <div className="left-content">
           <h2>
-            <Link to="/">Recipes4You</Link>
+            <Link to="/project2/">Recipes4You</Link>
           </h2>
         </div>
         <div className="right-content">
           <p>
-            <Link to="/MyRatings">My Ratings</Link>
+            <Link to="/project2/MyRatings">My Ratings</Link>
           </p>
           <p>
-            <Link to="/MyFavorites">My Favorites</Link>
+            <Link to="/project2/MyFavorites">My Favorites</Link>
           </p>
         </div>
       </nav>

@@ -17,11 +17,11 @@ export default function RecipeElement(props: RecipeElementProps) {
 
   return (
     <section>
-      <Link to={`/${recipeID}`}>
+      <Link to={`/project2/${recipeID}`}>
         <img className="recipe-image" src={imagePath} alt={title} />
       </Link>
       <div className="recipe-title">
-        <Link to={`/${recipeID}`}>
+        <Link to={`/project2/${recipeID}`}>
           <h3>{title}</h3>
         </Link>
         <div className="rate-and-favorite">
@@ -35,7 +35,7 @@ export default function RecipeElement(props: RecipeElementProps) {
           </div>
         </div>
       </div>
-      <Link to={`/${recipeID}`}>
+      <Link to={`/project2/${recipeID}`}>
         <p className="recipe-info"> {description.slice(0, 100)} ...</p>
       </Link>
     </section>
