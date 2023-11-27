@@ -67,3 +67,9 @@ The current functionality includes:
 To run the tests, make sure to cd into /recipes_app. Then run the following commands:
 1. Run `npm install`
 2. Run `npm run test`
+
+This project uses cypress for end-to-end testing. To run cypress make sure to be in 
+ /recipes_app and run `npm install` 
+ Then to run the tests use: `npx cypress run`
+ To see the test run in browser use `npx cypress open` 
+ and choose the spec.cy.ts file.
