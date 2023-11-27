@@ -144,7 +144,7 @@ export default function Recipe() {
                     className="post-button"
                     variant="contained"
                     style={{
-                      backgroundColor: '#C5C6EF',
+                      backgroundColor: '#BB99CD',
                       marginLeft: '10px',
                     }}
                     onClick={postComment}

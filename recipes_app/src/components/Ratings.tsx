@@ -1,5 +1,5 @@
-import { Rating } from "@mui/material";
-import useIndexedDBRatings from "./RatingsDB";
+import { Rating } from '@mui/material';
+import useIndexedDBRatings from './RatingsDB';
 
 interface Ratings {
   [title: string]: number;
@@ -8,9 +8,7 @@ interface Ratings {
 function Ratings({ title }: { title: string }) {
   const { ratings, toggleRatings } = useIndexedDBRatings();
 
-  const startValue = (ratings as Ratings)[title]
-    ? (ratings as Ratings)[title]
-    : 2;
+  const startValue = (ratings as Ratings)[title] ? (ratings as Ratings)[title] : 0;
 
   return (
     <>
@@ -18,7 +16,7 @@ function Ratings({ title }: { title: string }) {
         name="simple-controlled"
         value={startValue}
         onChange={(_, newValue) => toggleRatings(title, newValue === null ? 0 : newValue)}
-        />
+      />
     </>
   );
 }

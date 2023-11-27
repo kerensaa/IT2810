@@ -107,7 +107,7 @@
 
   align-self: stretch;
   /* Typography */
-  color: var(--m-3-sys-light-on-surface-variant, #49454f);
+  color: black;
 
   font-family: Inter;
   font-size: 13px;
